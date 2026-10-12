@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Buku;
 use App\Models\Kategori;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -20,9 +21,27 @@ class KategoriCrudTest extends TestCase
         $response = $this->get(route('kategori.index'));
 
         $response->assertStatus(200);
-        $response->assertSee('Daftar Kategori Buku');
+        $response->assertSee('Manajemen Kategori');
         $response->assertSee('KAT01');
         $response->assertSee('Teknologi Informasi');
+    }
+
+    public function test_pencarian_kategori(): void
+    {
+        Kategori::factory()->create([
+            'kode_kategori' => 'KAT-AI',
+            'nama_kategori' => 'Kecerdasan Buatan',
+        ]);
+        Kategori::factory()->create([
+            'kode_kategori' => 'KAT-MAT',
+            'nama_kategori' => 'Matematika Terapan',
+        ]);
+
+        $response = $this->get(route('kategori.index', ['search' => 'Kecerdasan']));
+
+        $response->assertStatus(200);
+        $response->assertSee('Kecerdasan Buatan');
+        $response->assertDontSee('Matematika Terapan');
     }
 
     public function test_dapat_menampilkan_halaman_tambah_kategori(): void
@@ -30,7 +49,7 @@ class KategoriCrudTest extends TestCase
         $response = $this->get(route('kategori.create'));
 
         $response->assertStatus(200);
-        $response->assertSee('Tambah Kategori Baru');
+        $response->assertSee('Tambah Kategori');
     }
 
     public function test_dapat_menyimpan_kategori_baru(): void
@@ -97,7 +116,7 @@ class KategoriCrudTest extends TestCase
         $response = $this->get(route('kategori.edit', $kategori));
 
         $response->assertStatus(200);
-        $response->assertSee('Edit Data Kategori');
+        $response->assertSee('Edit Kategori');
     }
 
     public function test_dapat_memperbarui_kategori(): void
@@ -122,7 +141,7 @@ class KategoriCrudTest extends TestCase
         ]);
     }
 
-    public function test_dapat_menghapus_kategori(): void
+    public function test_dapat_menghapus_kategori_tanpa_buku(): void
     {
         $kategori = Kategori::factory()->create();
 
@@ -132,6 +151,21 @@ class KategoriCrudTest extends TestCase
         $response->assertSessionHas('success');
 
         $this->assertDatabaseMissing('kategoris', [
+            'id' => $kategori->id,
+        ]);
+    }
+
+    public function test_kategori_dengan_buku_ditolak_penghapusannya(): void
+    {
+        $kategori = Kategori::factory()->create();
+        Buku::factory()->create(['kategori_id' => $kategori->id]);
+
+        $response = $this->from(route('kategori.index'))->delete(route('kategori.destroy', $kategori));
+
+        $response->assertRedirect(route('kategori.index'));
+        $response->assertSessionHas('error');
+
+        $this->assertDatabaseHas('kategoris', [
             'id' => $kategori->id,
         ]);
     }

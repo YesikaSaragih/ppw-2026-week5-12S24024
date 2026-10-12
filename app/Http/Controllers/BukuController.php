@@ -12,14 +12,47 @@ use Illuminate\View\View;
 class BukuController extends Controller
 {
     /**
-     * Tampilkan daftar seluruh buku (menggunakan Eager Loading & Pagination).
+     * Tampilkan daftar koleksi buku dengan fitur pencarian, filter, Eager Loading, dan pagination.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        // Eager Loading relasi 'kategori' untuk mencegah masalah N+1 Query
-        $bukus = Buku::with('kategori')->latest()->paginate(10);
+        // Inisialisasi query dengan Eager Loading relasi 'kategori' untuk mencegah N+1 problem
+        $query = Buku::with('kategori');
 
-        return view('buku.index', compact('bukus'));
+        // Fitur Pencarian Server-Side (berdasarkan judul, ISBN, atau penulis)
+        if ($request->filled('search')) {
+            $search = trim($request->input('search'));
+            $query->where(function ($q) use ($search) {
+                $q->where('judul', 'like', "%{$search}%")
+                  ->orWhere('isbn', 'like', "%{$search}%")
+                  ->orWhere('penulis', 'like', "%{$search}%");
+            });
+        }
+
+        // Filter berdasarkan Kategori
+        if ($request->filled('kategori_id')) {
+            $query->where('kategori_id', $request->input('kategori_id'));
+        }
+
+        // Filter berdasarkan Status Stok
+        if ($request->filled('stok_status')) {
+            $status = $request->input('stok_status');
+            if ($status === 'tersedia') {
+                $query->where('stok', '>', 5);
+            } elseif ($status === 'menipis') {
+                $query->where('stok', '>', 0)->where('stok', '<=', 5);
+            } elseif ($status === 'habis') {
+                $query->where('stok', 0);
+            }
+        }
+
+        // Pagination 10 data per halaman dengan mempertahankan query string filter
+        $bukus = $query->latest()->paginate(10)->withQueryString();
+
+        // Mengambil daftar seluruh kategori untuk dropdown filter antarmuka
+        $kategoris = Kategori::orderBy('nama_kategori')->get();
+
+        return view('buku.index', compact('bukus', 'kategoris'));
     }
 
     /**
@@ -110,7 +143,7 @@ class BukuController extends Controller
 
         return redirect()
             ->route('buku.index')
-            ->with('success', 'Buku baru berhasil ditambahkan ke perpustakaan.');
+            ->with('success', 'Buku baru berhasil ditambahkan ke katalog perpustakaan.');
     }
 
     /**

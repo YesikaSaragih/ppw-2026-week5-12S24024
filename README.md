@@ -33,16 +33,28 @@ Praktikum ini bertujuan untuk mencapai kompetensi Sub-CPMK:
 
 ## 3. Fitur Utama
 
+- **Dashboard Perpustakaan Modern Minimalis (Modern Minimalist Dashboard):**
+  - Ringkasan metrik statistik riil database: Total Judul Buku, Total Kategori, Total Eksemplar Stok, dan Jumlah Buku Stok Habis.
+  - Daftar 5 koleksi buku terbaru yang terdaftar dengan Eager Loading relasi kategori.
+  - Panel aksi cepat langsung ke penambahan buku, kategori, dan penelusuran katalog.
+- **Navigasi Sidebar SaaS Responsif:**
+  - Sidebar di sisi kiri dengan indikator rute aktif berlatar lavender lembut (`#F3EEFF`) dan aksen Del Purple (`#4C1D95`).
+  - Responsif pada layar mobile melalui drawer offcanvas dengan tombol toggle burger.
+- **Pencarian & Filter Multi-Kriteria Server-Side:**
+  - Pencarian buku berdasarkan judul, ISBN, atau nama penulis secara server-side.
+  - Filter buku berdasarkan klasifikasi kategori dan status ketersediaan stok (Tersedia, Menipis, Habis).
+  - Pencarian kategori berdasarkan nama atau kode klasifikasi.
+  - Retensi query parameter pada pagination (`->withQueryString()`).
 - **Manajemen Kategori Buku (CRUD Lengkap):**
   - Melihat daftar kategori disertai penghitungan otomatis jumlah buku terkait (`withCount('bukus')`).
   - Menambah kategori baru dengan validasi kode unik dan nama bidang keilmuan.
   - Melihat rincian detail kategori dan seluruh daftar buku yang terdaftar di dalamnya.
   - Memperbarui data kategori dengan pengecualian ID saat validasi kode unik.
-  - Menghapus kategori beserta buku terkait (*cascade on delete*).
+  - Perlindungan integritas referensial: pencegahan penghapusan kategori jika masih memuat buku aktif disertai flash pesan informatif.
 - **Manajemen Koleksi Buku (CRUD Lengkap):**
   - Menampilkan katalog buku dengan pagination aktif (10 item/halaman) dan *Eager Loading* kategori.
-  - Menambah koleksi buku dengan validasi ketat (ISBN unik, judul min 5 karakter, stok non-negatif, tahun terbit valid).
-  - Melihat detail spesifikasi lengkap buku, status ketersediaan stok, dan deskripsi sinopsis.
+  - Menambah koleksi buku dengan form terstruktur 5 bagian (Identitas, Kepengarangan, Klasifikasi, Inventaris, Sinopsis).
+  - Melihat detail spesifikasi lengkap buku dengan layout tipografi elegan tanpa gambar palsu.
   - Memperbarui informasi buku melalui method spoofing `PUT`.
   - Menghapus buku dengan konfirmasi interaktif via method `DELETE`.
 - **Keamanan & Validasi Masukan:**
@@ -252,6 +264,8 @@ php artisan test
 
    PASS  Tests\Feature\BukuCrudTest
   ✓ dapat menampilkan halaman index buku
+  ✓ pencarian buku berdasarkan judul
+  ✓ filter buku berdasarkan kategori dan stok
   ✓ dapat menampilkan halaman tambah buku
   ✓ dapat menyimpan buku baru dengan relasi kategori
   ✓ validasi isbn duplikat ditolak
@@ -263,11 +277,15 @@ php artisan test
   ✓ dapat menghapus buku
   ✓ eager loading mencegah n plus 1 problem
 
+   PASS  Tests\Feature\DashboardTest
+  ✓ dapat menampilkan halaman dashboard dengan statistik akurat
+
    PASS  Tests\Feature\ExampleTest
   ✓ the application returns a successful response
 
    PASS  Tests\Feature\KategoriCrudTest
   ✓ dapat menampilkan halaman index kategori
+  ✓ pencarian kategori
   ✓ dapat menampilkan halaman tambah kategori
   ✓ dapat menyimpan kategori baru
   ✓ validasi kode kategori harus unik
@@ -275,9 +293,10 @@ php artisan test
   ✓ dapat menampilkan detail kategori
   ✓ dapat menampilkan form edit kategori
   ✓ dapat memperbarui kategori
-  ✓ dapat menghapus kategori
+  ✓ dapat menghapus kategori tanpa buku
+  ✓ kategori dengan buku ditolak penghapusannya
 
-  Tests:    22 passed (63 assertions)
+  Tests:    27 passed (84 assertions)
 ```
 
 ---
@@ -307,41 +326,43 @@ Setiap kueri database yang dieksekusi akan dicatat ke berkas:
 
 ### Contoh Log Kueri Aktual yang Diperoleh Saat Membuka `/buku`:
 ```text
-[SQL AUDIT] (0.14 ms) select count(*) as "aggregate" from "bukus"
-[SQL AUDIT] (0.18 ms) select * from "bukus" order by "created_at" desc limit 10 offset 0
+[SQL AUDIT] (0.19 ms) select count(*) as "aggregate" from "bukus"
+[SQL AUDIT] (0.65 ms) select * from "bukus" order by "created_at" desc limit 10 offset 0
 [SQL AUDIT] (0.12 ms) select * from "kategoris" where "kategoris"."id" in (1, 2, 3, 4)
+[SQL AUDIT] (0.09 ms) select * from "kategoris" order by "nama_kategori" asc
 ```
 
 ### Analisis Hasil Audit:
 1. **Query 1 (Agregasi Pagination):** `select count(*) as "aggregate" from "bukus"` menghitung total buku untuk paginator.
 2. **Query 2 (Data Koleksi Buku):** `select * from "bukus" order by "created_at" desc limit 10 offset 0` mengambil 10 buku teratas.
 3. **Query 3 (Relasi Kategori via Eager Loading):** `select * from "kategoris" where "kategoris"."id" in (1, 2, 3, 4)` mengambil seluruh data kategori untuk ke-10 buku tersebut secara serentak menggunakan operator `IN (...)`.
+4. **Query 4 (Dropdown Filter):** `select * from "kategoris" order by "nama_kategori" asc` memuat opsi filter kategori pada antarmuka pencarian.
 
 **Perbandingan dengan Masalah N+1 (Lazy Loading):**
 - **Jika Tanpa Eager Loading:** Mengambil 10 buku akan memicu 1 kueri buku + 10 kueri kategori terpisah = **11 kueri SQL**.
-- **Dengan Eager Loading (`with('kategori')`):** Data diringkas menjadi tepat **2 kueri data terpadu** (ditambah 1 kueri pagination), terlepas dari berapapun jumlah buku yang ditampilkan di halaman.
+- **Dengan Eager Loading (`with('kategori')`):** Data diringkas menjadi tepat **2 kueri data terpadu** (ditambah kueri pendukung), terlepas dari berapapun jumlah buku yang ditampilkan di halaman.
 
 ---
 
-## 14. Daftar Endpoint RESTful CRUD
+## 14. Daftar Endpoint RESTful & Dashboard
 
 | Metode HTTP | URI Endpoint | Nama Route | Action Controller | Deskripsi |
 | :--- | :--- | :--- | :--- | :--- |
-| `GET` | `/` | &mdash; | Redirect | Dialihkan langsung ke `/buku` |
-| `GET` | `/buku` | `buku.index` | `BukuController@index` | Menampilkan katalog buku & pagination |
-| `GET` | `/buku/create` | `buku.create` | `BukuController@create` | Form penambahan buku baru |
+| `GET` | `/` | `dashboard` | `DashboardController@index` | Dashboard utama perpustakaan & 4 metrik |
+| `GET` | `/buku` | `buku.index` | `BukuController@index` | Menampilkan katalog buku, pencarian, filter |
+| `GET` | `/buku/create` | `buku.create` | `BukuController@create` | Form penambahan buku baru multi-seksi |
 | `POST` | `/buku` | `buku.store` | `BukuController@store` | Validasi & simpan buku ke database |
 | `GET` | `/buku/{buku}` | `buku.show` | `BukuController@show` | Menampilkan rincian detail buku |
 | `GET` | `/buku/{buku}/edit`| `buku.edit` | `BukuController@edit` | Form pengubahan data buku |
 | `PUT/PATCH` | `/buku/{buku}` | `buku.update` | `BukuController@update` | Validasi & perbarui data buku |
 | `DELETE` | `/buku/{buku}` | `buku.destroy` | `BukuController@destroy` | Menghapus buku dari database |
-| `GET` | `/kategori` | `kategori.index` | `KategoriController@index` | Menampilkan daftar kategori buku |
+| `GET` | `/kategori` | `kategori.index` | `KategoriController@index` | Menampilkan daftar kategori buku & pencarian |
 | `GET` | `/kategori/create` | `kategori.create` | `KategoriController@create` | Form penambahan kategori baru |
 | `POST` | `/kategori` | `kategori.store` | `KategoriController@store` | Validasi & simpan kategori baru |
 | `GET` | `/kategori/{kategori}` | `kategori.show` | `KategoriController@show` | Detail kategori & daftar buku terkait |
 | `GET` | `/kategori/{kategori}/edit`| `kategori.edit`| `KategoriController@edit` | Form pengubahan kategori |
 | `PUT/PATCH` | `/kategori/{kategori}` | `kategori.update`| `KategoriController@update` | Validasi & perbarui kategori |
-| `DELETE` | `/kategori/{kategori}` | `kategori.destroy`| `KategoriController@destroy` | Menghapus kategori & buku terkait |
+| `DELETE` | `/kategori/{kategori}` | `kategori.destroy`| `KategoriController@destroy` | Menghapus kategori (dengan cek referensial) |
 
 ---
 
@@ -351,10 +372,10 @@ Setiap kueri database yang dieksekusi akan dicatat ke berkas:
 | :---: | :--- | :---: | :---: | :--- |
 | 1 | Skema Data & Migrations | 20% | **TERPENUHI (100%)** | Tabel `kategoris` & `bukus` lengkap dengan index unik dan foreign key cascade |
 | 2 | Model Eloquent & Relasi | 20% | **TERPENUHI (100%)** | Relasi `hasMany()` dan `belongsTo()`, `$fillable` terproteksi, mitigasi N+1 terbukti |
-| 3 | Routing RESTful & Controller | 20% | **TERPENUHI (100%)** | 7 aksi lengkap terdaftar via `Route::resource` dengan *Implicit Route Model Binding* |
+| 3 | Routing RESTful & Controller | 20% | **TERPENUHI (100%)** | 7 aksi lengkap terdaftar via `Route::resource` ditambah `DashboardController` |
 | 4 | Validasi Server-Side & CSRF | 15% | **TERPENUHI (100%)** | Validasi ketat `$request->validate()` berbahasa Indonesia, token `@csrf`, spoofing method |
-| 5 | Blade Templating & UI | 15% | **TERPENUHI (100%)** | Komponen master layout `<x-layout>` bertema Del Purple (`#4C1D95`), flash alert, `@forelse` |
-| 6 | Seeders, Logging, Git | 10% | **TERPENUHI (100%)** | Seeder 6 kategori & 24 buku realistis, log `[SQL AUDIT]`, 22 automated tests lulus |
+| 5 | Blade Templating & UI | 15% | **TERPENUHI (100%)** | Modern Minimalist Library Dashboard dengan Sidebar SaaS Del Purple (`#4C1D95`), flash alert, `@forelse` |
+| 6 | Seeders, Logging, Git | 10% | **TERPENUHI (100%)** | Seeder 6 kategori & 24 buku realistis, log `[SQL AUDIT]`, 27 automated tests lulus |
 
 ---
 

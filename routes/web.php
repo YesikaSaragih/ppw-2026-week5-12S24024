@@ -1,14 +1,13 @@
 <?php
 
 use App\Http\Controllers\BukuController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriController;
 use Illuminate\Support\Facades\Route;
 
-// Redirect halaman utama ke daftar buku
-Route::get('/', function () {
-    return redirect()->route('buku.index');
-});
+// Halaman Utama: Dashboard Perpustakaan SIPUS-Del
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-// Resource routes untuk Kategori dan Buku
+// Resource Routes RESTful untuk Kategori dan Buku
 Route::resource('kategori', KategoriController::class);
 Route::resource('buku', BukuController::class);

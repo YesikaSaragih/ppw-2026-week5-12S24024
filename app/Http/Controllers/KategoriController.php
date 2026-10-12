@@ -11,11 +11,22 @@ use Illuminate\View\View;
 class KategoriController extends Controller
 {
     /**
-     * Tampilkan daftar seluruh kategori.
+     * Tampilkan daftar seluruh kategori dengan fitur pencarian dan penghitungan buku.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $kategoris = Kategori::withCount('bukus')->latest()->paginate(10);
+        $query = Kategori::withCount('bukus');
+
+        // Fitur Pencarian Server-Side kategori
+        if ($request->filled('search')) {
+            $search = trim($request->input('search'));
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_kategori', 'like', "%{$search}%")
+                  ->orWhere('kode_kategori', 'like', "%{$search}%");
+            });
+        }
+
+        $kategoris = $query->latest()->paginate(10)->withQueryString();
 
         return view('kategori.index', compact('kategoris'));
     }
@@ -115,10 +126,17 @@ class KategoriController extends Controller
     }
 
     /**
-     * Hapus data kategori dari database.
+     * Hapus data kategori dari database dengan perlindungan integritas referensial.
      */
     public function destroy(Kategori $kategori): RedirectResponse
     {
+        $jumlahBuku = $kategori->bukus()->count();
+
+        // Validasi perlindungan data referensial
+        if ($jumlahBuku > 0) {
+            return back()->with('error', "Kategori '{$kategori->nama_kategori}' tidak dapat dihapus karena masih memuat {$jumlahBuku} koleksi buku aktif.");
+        }
+
         $nama = $kategori->nama_kategori;
         $kategori->delete();
 

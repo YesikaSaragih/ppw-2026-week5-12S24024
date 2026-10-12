@@ -23,9 +23,57 @@ class BukuCrudTest extends TestCase
         $response = $this->get(route('buku.index'));
 
         $response->assertStatus(200);
-        $response->assertSee('Daftar Koleksi Buku');
+        $response->assertSee('Manajemen Buku');
         $response->assertSee('Pemrograman Laravel Lanjut');
         $response->assertSee('Teknologi Informasi');
+    }
+
+    public function test_pencarian_buku_berdasarkan_judul(): void
+    {
+        $kategori = Kategori::factory()->create();
+        Buku::factory()->create([
+            'judul' => 'Algoritma Pemrograman C++',
+            'kategori_id' => $kategori->id,
+        ]);
+        Buku::factory()->create([
+            'judul' => 'Desain Pola Arsitektur',
+            'kategori_id' => $kategori->id,
+        ]);
+
+        $response = $this->get(route('buku.index', ['search' => 'Algoritma']));
+
+        $response->assertStatus(200);
+        $response->assertSee('Algoritma Pemrograman C++');
+        $response->assertDontSee('Desain Pola Arsitektur');
+    }
+
+    public function test_filter_buku_berdasarkan_kategori_dan_stok(): void
+    {
+        $kategori1 = Kategori::factory()->create(['nama_kategori' => 'Kategori Khusus A']);
+        $kategori2 = Kategori::factory()->create(['nama_kategori' => 'Kategori Khusus B']);
+
+        Buku::factory()->create([
+            'judul' => 'Buku Kategori A Tersedia',
+            'kategori_id' => $kategori1->id,
+            'stok' => 15,
+        ]);
+        Buku::factory()->create([
+            'judul' => 'Buku Kategori B Habis',
+            'kategori_id' => $kategori2->id,
+            'stok' => 0,
+        ]);
+
+        // Filter kategori A
+        $responseKat = $this->get(route('buku.index', ['kategori_id' => $kategori1->id]));
+        $responseKat->assertStatus(200);
+        $responseKat->assertSee('Buku Kategori A Tersedia');
+        $responseKat->assertDontSee('Buku Kategori B Habis');
+
+        // Filter stok habis
+        $responseStok = $this->get(route('buku.index', ['stok_status' => 'habis']));
+        $responseStok->assertStatus(200);
+        $responseStok->assertSee('Buku Kategori B Habis');
+        $responseStok->assertDontSee('Buku Kategori A Tersedia');
     }
 
     public function test_dapat_menampilkan_halaman_tambah_buku(): void
@@ -207,8 +255,7 @@ class BukuCrudTest extends TestCase
         $response = $this->get(route('buku.index'));
         $response->assertStatus(200);
 
-        // Jika terjadi N+1 tanpa eager loading, query akan menjadi 12 (1 count + 1 fetch buku + 10 fetch kategori)
-        // Dengan eager loading with('kategori'), total query hanya 3 (1 count pagination + 1 select bukus + 1 select kategoris where in)
+        // Dengan eager loading with('kategori'), total query kueri data sangat efisien (<= 4 query)
         $this->assertLessThanOrEqual(4, count($queries), 'Jumlah query melebihi batas toleransi eager loading (N+1 terdeteksi).');
     }
 }
