@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +22,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Menggunakan styling pagination Bootstrap 5
+        Paginator::useBootstrapFive();
+
+        // SQL Query Audit Listener sesuai LAB 4 Modul Praktikum
+        DB::listen(function ($query) {
+            Log::info(sprintf(
+                "[SQL AUDIT] (%.2f ms) %s",
+                $query->time,
+                $query->sql
+            ));
+        });
     }
 }
