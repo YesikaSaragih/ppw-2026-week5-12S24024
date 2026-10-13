@@ -6,7 +6,7 @@
                 <div>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-1" style="font-size: 0.8rem;">
-                            <li class="breadcrumb-item"><a href="{{ route('buku.index') }}" class="text-decoration-none text-muted">Koleksi Buku</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('buku.index') }}" class="text-decoration-none text-primary">Koleksi Buku</a></li>
                             <li class="breadcrumb-item active text-dark" aria-current="page">Rincian Buku</li>
                         </ol>
                     </nav>
@@ -30,11 +30,11 @@
             </div>
 
             <!-- Kartu Metadata Ringkas -->
-            <div class="ui-card p-4 mb-4">
+            <div class="ui-card p-4 mb-4" style="background: linear-gradient(135deg, #FFFFFF 0%, var(--del-lightest-blue) 100%); border-left: 4px solid var(--del-primary);">
                 <div class="row g-4 align-items-center">
                     <div class="col-md-7">
                         <div class="d-flex align-items-center gap-2 mb-2">
-                            <span class="badge bg-light text-secondary border font-monospace py-1 px-2" style="font-size: 0.8rem;">
+                            <span class="badge bg-white text-secondary border font-monospace py-1 px-2" style="font-size: 0.8rem;">
                                 ISBN: {{ $buku->isbn }}
                             </span>
                             @if ($buku->kategori)
@@ -45,7 +45,7 @@
                         </div>
                         <h2 class="h5 fw-bold text-dark mb-1">{{ $buku->judul }}</h2>
                         <div class="text-muted small">
-                            Ditulis oleh <strong>{{ $buku->penulis }}</strong> &bull; Diterbitkan oleh <strong>{{ $buku->penerbit }}</strong>
+                            Ditulis oleh <strong class="text-dark">{{ $buku->penulis }}</strong> &bull; Diterbitkan oleh <strong class="text-dark">{{ $buku->penerbit }}</strong>
                         </div>
                     </div>
                     <div class="col-md-5 text-md-end">
@@ -92,15 +92,17 @@
                 <div class="col-sm-6 col-md-3">
                     <div class="ui-card p-3 h-100">
                         <div class="text-muted small fw-medium">Kode Kategori</div>
-                        <div class="fw-semibold text-dark mt-1 font-monospace">{{ $buku->kategori ? $buku->kategori->kode_kategori : '-' }}</div>
+                        <div class="fw-semibold text-primary mt-1 font-monospace">{{ $buku->kategori ? $buku->kategori->kode_kategori : '-' }}</div>
                     </div>
                 </div>
             </div>
 
             <!-- Sinopsis Card -->
             <div class="ui-card mb-4">
-                <div class="ui-card-header">
-                    <span class="ui-card-title"><i class="bi bi-text-paragraph text-primary me-1"></i> Sinopsis / Ringkasan Buku</span>
+                <div class="ui-card-header" style="background: linear-gradient(180deg, var(--del-lightest-blue) 0%, #FFFFFF 100%);">
+                    <span class="ui-card-title">
+                        <i class="bi bi-text-paragraph text-primary me-1"></i> Sinopsis / Ringkasan Buku
+                    </span>
                 </div>
                 <div class="ui-card-body">
                     @if ($buku->sinopsis)

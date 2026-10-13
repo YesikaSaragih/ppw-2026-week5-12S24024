@@ -13,18 +13,23 @@
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --del-primary: #4C1D95;
-            --del-deep: #3B0764;
-            --del-soft-lavender: #F3EEFF;
-            --del-bg: #F8F9FC;
-            --del-surface: #FFFFFF;
-            --del-text-main: #202033;
-            --del-text-muted: #6B7280;
-            --del-border: #E8E8F0;
+            /* Tema Biru Muda Modern & Minimalis (Light Sky Blue & Cyan Theme) */
+            --del-primary: #0284C7;             /* Sky Blue 600 - Warna Utama */
+            --del-primary-hover: #0369A1;       /* Sky Blue 700 - Hover State */
+            --del-deep: #0C4A6E;                /* Dark Sky Navy - Header/Aksen */
+            --del-soft-blue: #E0F2FE;           /* Sky Blue 100 - Latar Biru Muda */
+            --del-lightest-blue: #F0F9FF;       /* Sky Blue 50 - Latar Paling Lembut */
+            --del-border-blue: #BAE6FD;         /* Sky Blue 200 - Garis Tepi Aksen Biru */
+            
+            --del-bg: #F8FAFC;                  /* Slate 50 - Latar Dashboard Bersih */
+            --del-surface: #FFFFFF;             /* Putih Murni - Latar Card */
+            --del-text-main: #0F172A;           /* Slate 900 - Teks Utama */
+            --del-text-muted: #64748B;          /* Slate 500 - Teks Sekunder */
+            --del-border: #E2E8F0;              /* Slate 200 - Garis Pembatas Lembut */
 
             --del-success-bg: #ECFDF5;
             --del-success-text: #065F46;
@@ -79,33 +84,39 @@
         }
 
         .sidebar-brand-icon {
-            width: 38px;
-            height: 38px;
-            background-color: var(--del-soft-lavender);
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--del-soft-blue) 0%, #BAE6FD 100%);
             color: var(--del-primary);
-            border-radius: 8px;
+            border: 1px solid var(--del-border-blue);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             flex-shrink: 0;
+            box-shadow: 0 2px 5px rgba(2, 132, 199, 0.12);
         }
 
         .sidebar-brand-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
+            font-size: 1.125rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
             line-height: 1.2;
-            color: var(--del-text-main);
+            color: var(--del-deep);
+        }
+
+        .sidebar-brand-title span {
+            color: var(--del-primary);
         }
 
         .sidebar-brand-subtitle {
             font-size: 0.6875rem;
-            font-weight: 500;
-            letter-spacing: 0.05em;
+            font-weight: 600;
+            letter-spacing: 0.06em;
             text-transform: uppercase;
             color: var(--del-text-muted);
-            margin-top: 1px;
+            margin-top: 2px;
         }
 
         .sidebar-menu {
@@ -120,10 +131,10 @@
 
         .sidebar-menu-header {
             font-size: 0.6875rem;
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: #9CA3AF;
+            letter-spacing: 0.08em;
+            color: #94A3B8;
             padding: 0.5rem 0.65rem 0.25rem;
         }
 
@@ -131,30 +142,31 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            padding: 0.625rem 0.85rem;
+            padding: 0.65rem 0.85rem;
             color: var(--del-text-muted);
             text-decoration: none;
             font-size: 0.875rem;
             font-weight: 500;
-            border-radius: 6px;
-            transition: all 0.15s ease-in-out;
+            border-radius: 8px;
+            transition: all 0.18s ease-in-out;
             position: relative;
         }
 
         .sidebar-nav-item i {
-            font-size: 1.05rem;
-            transition: color 0.15s ease-in-out;
+            font-size: 1.1rem;
+            transition: color 0.18s ease-in-out;
         }
 
         .sidebar-nav-item:hover {
-            color: var(--del-text-main);
-            background-color: #F9FAFB;
+            color: var(--del-primary);
+            background-color: var(--del-lightest-blue);
         }
 
         .sidebar-nav-item.active {
             color: var(--del-primary);
-            background-color: var(--del-soft-lavender);
+            background-color: var(--del-soft-blue);
             font-weight: 600;
+            box-shadow: inset 0 0 0 1px var(--del-border-blue);
         }
 
         .sidebar-nav-item.active i {
@@ -167,18 +179,18 @@
             left: -0.85rem;
             top: 15%;
             bottom: 15%;
-            width: 3.5px;
+            width: 4px;
             background-color: var(--del-primary);
-            border-top-right-radius: 3px;
-            border-bottom-right-radius: 3px;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
         }
 
         .sidebar-footer {
-            padding: 1rem 1.25rem;
+            padding: 1.1rem 1.25rem;
             border-top: 1px solid var(--del-border);
             font-size: 0.775rem;
             color: var(--del-text-muted);
-            background-color: #FCFDFF;
+            background-color: #F8FAFC;
         }
 
         /* Main Content Wrapper */
@@ -213,9 +225,14 @@
         .ui-card {
             background-color: var(--del-surface);
             border: 1px solid var(--del-border);
-            border-radius: 10px;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.03);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04);
             margin-bottom: 1.5rem;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .ui-card:hover {
+            border-color: #CBD5E1;
         }
 
         .ui-card-header {
@@ -229,62 +246,73 @@
 
         .ui-card-title {
             font-size: 0.975rem;
-            font-weight: 600;
-            color: var(--del-text-main);
+            font-weight: 700;
+            color: var(--del-deep);
             margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
         }
 
         .ui-card-body {
             padding: 1.35rem;
         }
 
-        /* Minimalist Buttons */
+        /* Modern Minimalist Buttons (Light Blue Accent) */
         .btn-del {
             background-color: var(--del-primary);
             color: #FFFFFF !important;
             border: 1px solid var(--del-primary);
-            font-weight: 500;
+            font-weight: 600;
             font-size: 0.875rem;
-            border-radius: 6px;
+            border-radius: 7px;
             padding: 0.5rem 1rem;
-            transition: all 0.15s ease;
+            transition: all 0.18s ease;
             display: inline-flex;
             align-items: center;
             gap: 0.45rem;
+            box-shadow: 0 2px 4px rgba(2, 132, 199, 0.2);
         }
 
         .btn-del:hover {
-            background-color: var(--del-deep);
-            border-color: var(--del-deep);
-            box-shadow: 0 2px 6px rgba(76, 29, 149, 0.2);
+            background-color: var(--del-primary-hover);
+            border-color: var(--del-primary-hover);
+            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .btn-del:active {
+            transform: translateY(0);
         }
 
         .btn-outline-del {
-            background-color: transparent;
+            background-color: var(--del-lightest-blue);
             color: var(--del-primary) !important;
-            border: 1px solid var(--del-border);
-            font-weight: 500;
+            border: 1px solid var(--del-border-blue);
+            font-weight: 600;
             font-size: 0.875rem;
-            border-radius: 6px;
+            border-radius: 7px;
             padding: 0.5rem 1rem;
-            transition: all 0.15s ease;
+            transition: all 0.18s ease;
             display: inline-flex;
             align-items: center;
             gap: 0.45rem;
         }
 
         .btn-outline-del:hover {
-            background-color: var(--del-soft-lavender);
+            background-color: var(--del-soft-blue);
             border-color: var(--del-primary);
+            color: var(--del-primary-hover) !important;
+            box-shadow: 0 2px 6px rgba(2, 132, 199, 0.15);
         }
 
         .btn-secondary-del {
-            background-color: #F3F4F6;
-            color: #374151 !important;
-            border: 1px solid #E5E7EB;
+            background-color: #F1F5F9;
+            color: #334155 !important;
+            border: 1px solid #CBD5E1;
             font-weight: 500;
             font-size: 0.875rem;
-            border-radius: 6px;
+            border-radius: 7px;
             padding: 0.5rem 0.95rem;
             transition: all 0.15s ease;
             display: inline-flex;
@@ -293,22 +321,22 @@
         }
 
         .btn-secondary-del:hover {
-            background-color: #E5E7EB;
-            color: #1F2937 !important;
+            background-color: #E2E8F0;
+            color: #0F172A !important;
         }
 
         /* Form Controls */
         .form-label {
             font-size: 0.825rem;
             font-weight: 600;
-            color: #374151;
+            color: #334155;
             margin-bottom: 0.35rem;
         }
 
         .form-control, .form-select {
             font-size: 0.875rem;
             border: 1px solid var(--del-border);
-            border-radius: 6px;
+            border-radius: 7px;
             padding: 0.525rem 0.85rem;
             color: var(--del-text-main);
             background-color: #FFFFFF;
@@ -317,7 +345,7 @@
 
         .form-control:focus, .form-select:focus {
             border-color: var(--del-primary);
-            box-shadow: 0 0 0 3px rgba(76, 29, 149, 0.12);
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.18);
             outline: none;
         }
 
@@ -329,11 +357,11 @@
 
         .table-del th {
             font-size: 0.75rem;
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            color: #6B7280;
-            background-color: #F9FAFB;
+            color: #475569;
+            background-color: #F8FAFC;
             border-bottom: 1px solid var(--del-border);
             padding: 0.85rem 1.15rem;
             white-space: nowrap;
@@ -344,7 +372,7 @@
             color: var(--del-text-main);
             padding: 1rem 1.15rem;
             vertical-align: middle;
-            border-bottom: 1px solid #F1F3F7;
+            border-bottom: 1px solid #F1F5F9;
         }
 
         .table-del tbody tr {
@@ -352,28 +380,35 @@
         }
 
         .table-del tbody tr:hover {
-            background-color: #FBFBFE;
+            background-color: #F0F9FF;
         }
 
         /* Badges */
         .badge-category {
-            background-color: var(--del-soft-lavender);
-            color: var(--del-primary);
+            background-color: var(--del-soft-blue);
+            color: #0369A1;
+            border: 1px solid var(--del-border-blue);
             font-size: 0.75rem;
             font-weight: 600;
             padding: 0.35rem 0.65rem;
-            border-radius: 5px;
+            border-radius: 6px;
             display: inline-flex;
             align-items: center;
             gap: 0.3rem;
             text-decoration: none;
+            transition: all 0.15s ease;
+        }
+
+        .badge-category:hover {
+            background-color: #BAE6FD;
+            color: #0C4A6E;
         }
 
         .badge-status {
             font-size: 0.75rem;
-            font-weight: 500;
+            font-weight: 600;
             padding: 0.35rem 0.65rem;
-            border-radius: 5px;
+            border-radius: 6px;
             display: inline-flex;
             align-items: center;
             gap: 0.35rem;
@@ -399,14 +434,15 @@
 
         /* Alert Notifications */
         .alert-del {
-            border-radius: 8px;
-            padding: 0.875rem 1.15rem;
+            border-radius: 10px;
+            padding: 0.95rem 1.25rem;
             font-size: 0.875rem;
             margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
             gap: 0.75rem;
             border: 1px solid transparent;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
         }
 
         .alert-del-success {
@@ -425,6 +461,24 @@
             background-color: var(--del-warning-bg);
             color: var(--del-warning-text);
             border-color: var(--del-warning-border);
+        }
+
+        /* Pagination Styling */
+        .pagination .page-item.active .page-link {
+            background-color: var(--del-primary);
+            border-color: var(--del-primary);
+            color: #FFFFFF;
+            font-weight: 600;
+        }
+
+        .pagination .page-link {
+            color: var(--del-primary);
+            border-color: var(--del-border);
+        }
+
+        .pagination .page-link:hover {
+            background-color: var(--del-soft-blue);
+            color: var(--del-primary-hover);
         }
 
         /* Minimalist Footer */
@@ -462,7 +516,7 @@
                 left: 0;
                 right: 0;
                 bottom: 0;
-                background-color: rgba(0, 0, 0, 0.35);
+                background-color: rgba(15, 23, 42, 0.4);
                 z-index: 1030;
                 display: none;
             }
@@ -494,7 +548,7 @@
                     <i class="bi bi-book-half"></i>
                 </div>
                 <div>
-                    <div class="sidebar-brand-title">SIPUS<span style="color: var(--del-primary);">-Del</span></div>
+                    <div class="sidebar-brand-title">SIPUS<span>-Del</span></div>
                     <div class="sidebar-brand-subtitle">Library Management</div>
                 </div>
             </a>
@@ -523,10 +577,10 @@
 
             <div class="sidebar-footer">
                 <div class="d-flex align-items-center gap-2">
-                    <span class="badge bg-light text-dark border p-1" style="font-size: 0.65rem;">IT DEL</span>
+                    <span class="badge" style="background-color: var(--del-soft-blue); color: var(--del-primary); border: 1px solid var(--del-border-blue); font-size: 0.65rem; font-weight: 700;">IT DEL</span>
                     <div>
-                        <div class="fw-semibold text-dark" style="font-size: 0.775rem;">Institut Teknologi Del</div>
-                        <div style="font-size: 0.7rem; color: #9CA3AF;">Kampus Laguboti, Toba</div>
+                        <div class="fw-bold text-dark" style="font-size: 0.775rem;">Institut Teknologi Del</div>
+                        <div style="font-size: 0.7rem; color: #64748B;">Kampus Laguboti, Toba</div>
                     </div>
                 </div>
             </div>
@@ -541,7 +595,7 @@
                         <i class="bi bi-list fs-5"></i>
                     </button>
                     <div>
-                        <div class="text-muted" style="font-size: 0.75rem;">SIPUS-Del &bull; Perpustakaan</div>
+                        <div class="text-muted" style="font-size: 0.75rem; font-weight: 500;">SIPUS-Del &bull; Sistem Informasi Perpustakaan</div>
                         <div class="fw-bold text-dark" style="font-size: 0.95rem;">{{ $title ?? 'Dashboard' }}</div>
                     </div>
                 </div>
@@ -554,6 +608,10 @@
                     @elseif (request()->routeIs('kategori.index'))
                         <a href="{{ route('kategori.create') }}" class="btn btn-del btn-sm">
                             <i class="bi bi-plus-lg"></i> Tambah Kategori
+                        </a>
+                    @elseif (request()->routeIs('dashboard'))
+                        <a href="{{ route('buku.create') }}" class="btn btn-del btn-sm">
+                            <i class="bi bi-plus-lg"></i> Tambah Buku
                         </a>
                     @endif
                 </div>

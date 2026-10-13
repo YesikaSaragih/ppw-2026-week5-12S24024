@@ -4,7 +4,7 @@
         <div>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-1" style="font-size: 0.8rem;">
-                    <li class="breadcrumb-item"><a href="{{ route('kategori.index') }}" class="text-decoration-none text-muted">Daftar Kategori</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('kategori.index') }}" class="text-decoration-none text-primary">Daftar Kategori</a></li>
                     <li class="breadcrumb-item active text-dark" aria-current="page">Rincian Kategori</li>
                 </ol>
             </nav>
@@ -28,11 +28,11 @@
     </div>
 
     <!-- Ringkasan Info Kategori -->
-    <div class="ui-card p-4 mb-4">
+    <div class="ui-card p-4 mb-4" style="background: linear-gradient(135deg, #FFFFFF 0%, var(--del-lightest-blue) 100%); border-left: 4px solid var(--del-primary);">
         <div class="row g-3 align-items-center">
             <div class="col-md-3">
                 <div class="text-muted small fw-medium">Kode Klasifikasi</div>
-                <div class="h5 fw-bold font-monospace text-dark mt-1 mb-0">{{ $kategori->kode_kategori }}</div>
+                <div class="h5 fw-bold font-monospace text-primary mt-1 mb-0">{{ $kategori->kode_kategori }}</div>
             </div>
             <div class="col-md-6">
                 <div class="text-muted small fw-medium">Nama Bidang Keilmuan</div>
@@ -51,8 +51,12 @@
     <div class="ui-card">
         <div class="ui-card-header">
             <div class="d-flex align-items-center gap-2">
-                <span class="ui-card-title"><i class="bi bi-journal-text text-primary me-1"></i> Koleksi Buku Terdaftar</span>
-                <span class="badge bg-light text-secondary border">Total: {{ $bukus->total() }}</span>
+                <span class="ui-card-title">
+                    <i class="bi bi-journal-text text-primary"></i> Koleksi Buku Terdaftar
+                </span>
+                <span class="badge" style="background-color: var(--del-soft-blue); color: var(--del-primary); border: 1px solid var(--del-border-blue); font-weight: 700;">
+                    Total: {{ $bukus->total() }}
+                </span>
             </div>
             <a href="{{ route('buku.create') }}" class="btn btn-sm btn-del">
                 <i class="bi bi-plus-lg"></i> Tambah Buku
@@ -92,25 +96,25 @@
                             <td class="text-center">
                                 @if ($buku->stok > 5)
                                     <span class="badge-status badge-status-tersedia">
-                                        <i class="bi bi-check-circle"></i> {{ $buku->stok }} eks
+                                        {{ $buku->stok }} eks
                                     </span>
                                 @elseif ($buku->stok > 0)
                                     <span class="badge-status badge-status-menipis">
-                                        <i class="bi bi-exclamation-triangle"></i> {{ $buku->stok }} eks
+                                        {{ $buku->stok }} eks
                                     </span>
                                 @else
                                     <span class="badge-status badge-status-habis">
-                                        <i class="bi bi-x-circle"></i> Habis
+                                        Habis
                                     </span>
                                 @endif
                             </td>
                             <td class="text-end">
                                 <div class="btn-group btn-group-sm" role="group">
-                                    <a href="{{ route('buku.show', $buku) }}" class="btn btn-light border" title="Detail">
-                                        <i class="bi bi-eye"></i>
+                                    <a href="{{ route('buku.show', $buku) }}" class="btn btn-light border py-1 px-2" title="Detail">
+                                        <i class="bi bi-eye text-primary"></i>
                                     </a>
-                                    <a href="{{ route('buku.edit', $buku) }}" class="btn btn-light border text-primary" title="Edit">
-                                        <i class="bi bi-pencil"></i>
+                                    <a href="{{ route('buku.edit', $buku) }}" class="btn btn-light border py-1 px-2" title="Edit">
+                                        <i class="bi bi-pencil" style="color: #0284C7;"></i>
                                     </a>
                                 </div>
                             </td>
@@ -119,11 +123,13 @@
                         <tr>
                             <td colspan="5" class="text-center py-5">
                                 <div class="py-3 text-muted">
-                                    <i class="bi bi-journal-x fs-1 d-block mb-2"></i>
+                                    <div class="p-3 d-inline-flex rounded-circle mb-3" style="background-color: var(--del-soft-blue); color: var(--del-primary);">
+                                        <i class="bi bi-journal-x fs-2"></i>
+                                    </div>
                                     <h6 class="fw-bold text-dark">Belum Ada Buku Terdaftar</h6>
                                     <p class="small mb-3">Kategori ini belum memiliki koleksi buku yang terhubung.</p>
                                     <a href="{{ route('buku.create') }}" class="btn btn-del btn-sm">
-                                        <i class="bi bi-plus-lg"></i> Tambah Buku Baru
+                                        <i class="bi bi-plus-lg me-1"></i> Tambah Buku Baru
                                     </a>
                                 </div>
                             </td>

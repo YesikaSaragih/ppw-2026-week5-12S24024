@@ -4,6 +4,10 @@
             <!-- Header Navigasi -->
             <div class="d-flex align-items-center justify-content-between mb-4">
                 <div>
+                    <div class="d-inline-flex align-items-center gap-2 px-2 py-1 rounded-pill mb-1" style="background-color: var(--del-soft-blue); border: 1px solid var(--del-border-blue);">
+                        <i class="bi bi-pencil-fill text-primary" style="font-size: 0.75rem;"></i>
+                        <span class="small fw-bold text-primary" style="font-size: 0.725rem;">Perubahan Klasifikasi</span>
+                    </div>
                     <h1 class="h4 fw-bold text-dark mb-1">Edit Kategori</h1>
                     <p class="text-muted small mb-0">Perbarui rincian kode atau nama klasifikasi bidang ilmu.</p>
                 </div>
@@ -18,8 +22,13 @@
             </div>
 
             <div class="ui-card">
-                <div class="ui-card-header">
-                    <span class="ui-card-title"><i class="bi bi-pencil-square text-primary me-1"></i> Perbarui Data Kategori</span>
+                <div class="ui-card-header" style="background: linear-gradient(180deg, var(--del-lightest-blue) 0%, #FFFFFF 100%);">
+                    <span class="ui-card-title">
+                        <span class="p-1 rounded bg-white border d-inline-flex align-items-center justify-content-center me-1" style="width: 26px; height: 26px; color: var(--del-primary);">
+                            <i class="bi bi-pencil-square"></i>
+                        </span>
+                        Perbarui Data Kategori
+                    </span>
                 </div>
                 <div class="ui-card-body">
                     <form action="{{ route('kategori.update', $kategori) }}" method="POST">

@@ -4,8 +4,12 @@
             <!-- Header Navigasi -->
             <div class="d-flex align-items-center justify-content-between mb-4">
                 <div>
+                    <div class="d-inline-flex align-items-center gap-2 px-2 py-1 rounded-pill mb-1" style="background-color: var(--del-soft-blue); border: 1px solid var(--del-border-blue);">
+                        <i class="bi bi-pencil-fill text-primary" style="font-size: 0.75rem;"></i>
+                        <span class="small fw-bold text-primary" style="font-size: 0.725rem;">Perubahan Data Pustaka</span>
+                    </div>
                     <h1 class="h4 fw-bold text-dark mb-1">Edit Data Buku</h1>
-                    <p class="text-muted small mb-0">Perbarui informasi katalog atau penyesuaian stok eksemplar buku.</p>
+                    <p class="text-muted small mb-0">Perbarui rincian katalog atau penyesuaian stok eksemplar buku.</p>
                 </div>
                 <div class="d-flex gap-2">
                     <a href="{{ route('buku.show', $buku) }}" class="btn btn-secondary-del btn-sm">
@@ -23,8 +27,13 @@
 
                 <!-- Seksi 1: Identitas Buku -->
                 <div class="ui-card mb-4">
-                    <div class="ui-card-header">
-                        <span class="ui-card-title"><i class="bi bi-info-circle me-1 text-primary"></i> 1. Identitas Utama Buku</span>
+                    <div class="ui-card-header" style="background: linear-gradient(180deg, var(--del-lightest-blue) 0%, #FFFFFF 100%);">
+                        <span class="ui-card-title">
+                            <span class="p-1 rounded bg-white border d-inline-flex align-items-center justify-content-center me-1" style="width: 26px; height: 26px; color: var(--del-primary);">
+                                <i class="bi bi-info-circle"></i>
+                            </span>
+                            1. Identitas Utama Buku
+                        </span>
                     </div>
                     <div class="ui-card-body">
                         <div class="row g-3">
@@ -59,8 +68,13 @@
 
                 <!-- Seksi 2: Kepengarangan & Penerbitan -->
                 <div class="ui-card mb-4">
-                    <div class="ui-card-header">
-                        <span class="ui-card-title"><i class="bi bi-person-badge me-1 text-primary"></i> 2. Kepengarangan &amp; Penerbit</span>
+                    <div class="ui-card-header" style="background: linear-gradient(180deg, var(--del-lightest-blue) 0%, #FFFFFF 100%);">
+                        <span class="ui-card-title">
+                            <span class="p-1 rounded bg-white border d-inline-flex align-items-center justify-content-center me-1" style="width: 26px; height: 26px; color: var(--del-primary);">
+                                <i class="bi bi-person-badge"></i>
+                            </span>
+                            2. Kepengarangan &amp; Penerbit
+                        </span>
                     </div>
                     <div class="ui-card-body">
                         <div class="row g-3">
@@ -94,8 +108,13 @@
 
                 <!-- Seksi 3: Klasifikasi, Tahun, & Inventaris -->
                 <div class="ui-card mb-4">
-                    <div class="ui-card-header">
-                        <span class="ui-card-title"><i class="bi bi-tags me-1 text-primary"></i> 3. Klasifikasi &amp; Inventaris</span>
+                    <div class="ui-card-header" style="background: linear-gradient(180deg, var(--del-lightest-blue) 0%, #FFFFFF 100%);">
+                        <span class="ui-card-title">
+                            <span class="p-1 rounded bg-white border d-inline-flex align-items-center justify-content-center me-1" style="width: 26px; height: 26px; color: var(--del-primary);">
+                                <i class="bi bi-tags"></i>
+                            </span>
+                            3. Klasifikasi &amp; Inventaris
+                        </span>
                     </div>
                     <div class="ui-card-body">
                         <div class="row g-3">
@@ -148,8 +167,13 @@
 
                 <!-- Seksi 4: Sinopsis -->
                 <div class="ui-card mb-4">
-                    <div class="ui-card-header">
-                        <span class="ui-card-title"><i class="bi bi-text-left me-1 text-primary"></i> 4. Deskripsi Sinopsis</span>
+                    <div class="ui-card-header" style="background: linear-gradient(180deg, var(--del-lightest-blue) 0%, #FFFFFF 100%);">
+                        <span class="ui-card-title">
+                            <span class="p-1 rounded bg-white border d-inline-flex align-items-center justify-content-center me-1" style="width: 26px; height: 26px; color: var(--del-primary);">
+                                <i class="bi bi-text-left"></i>
+                            </span>
+                            4. Deskripsi Sinopsis
+                        </span>
                     </div>
                     <div class="ui-card-body">
                         <label for="sinopsis" class="form-label">Sinopsis / Ringkasan Isi</label>
