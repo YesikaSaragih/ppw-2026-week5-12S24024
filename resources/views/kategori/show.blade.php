@@ -5,25 +5,24 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-1" style="font-size: 0.8rem;">
                     <li class="breadcrumb-item"><a href="{{ route('kategori.index') }}" class="text-decoration-none text-primary">Daftar Kategori</a></li>
-                    <li class="breadcrumb-item active text-dark" aria-current="page">Rincian Kategori</li>
+                    <li class="breadcrumb-item active text-dark" aria-current="page">Detail Kategori</li>
                 </ol>
             </nav>
             <h1 class="h4 fw-bold text-dark mb-0">{{ $kategori->nama_kategori }}</h1>
         </div>
         <div class="d-flex align-items-center gap-2">
             <a href="{{ route('kategori.index') }}" class="btn btn-secondary-del btn-sm">
-                <i class="bi bi-arrow-left"></i> Kembali
+                <i class="bi bi-arrow-left"></i> Kembali ke Daftar
             </a>
             <a href="{{ route('kategori.edit', $kategori) }}" class="btn btn-del btn-sm">
-                <i class="bi bi-pencil"></i> Edit
+                <i class="bi bi-pencil"></i> Ubah Kategori
             </a>
-            <form action="{{ route('kategori.destroy', $kategori) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus kategori \'{{ addslashes($kategori->nama_kategori) }}\'?');">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-light border text-danger btn-sm" title="Hapus Kategori">
-                    <i class="bi bi-trash"></i> Hapus
-                </button>
-            </form>
+            <button type="button"
+                    class="btn btn-light border text-danger btn-sm"
+                    title="Hapus Kategori"
+                    onclick="confirmDelete('{{ route('kategori.destroy', $kategori) }}', '{{ addslashes($kategori->nama_kategori) }}')">
+                <i class="bi bi-trash"></i> Hapus
+            </button>
         </div>
     </div>
 
@@ -31,7 +30,7 @@
     <div class="ui-card p-4 mb-4" style="background: linear-gradient(135deg, #FFFFFF 0%, var(--del-lightest-blue) 100%); border-left: 4px solid var(--del-primary);">
         <div class="row g-3 align-items-center">
             <div class="col-md-3">
-                <div class="text-muted small fw-medium">Kode Klasifikasi</div>
+                <div class="text-muted small fw-medium">Kode Kategori</div>
                 <div class="h5 fw-bold font-monospace text-primary mt-1 mb-0">{{ $kategori->kode_kategori }}</div>
             </div>
             <div class="col-md-6">
@@ -39,7 +38,7 @@
                 <div class="h5 fw-bold text-dark mt-1 mb-0">{{ $kategori->nama_kategori }}</div>
             </div>
             <div class="col-md-3 text-md-end">
-                <div class="text-muted small fw-medium">Koleksi Terdaftar</div>
+                <div class="text-muted small fw-medium">Jumlah Koleksi Buku</div>
                 <div class="h5 fw-bold text-primary mt-1 mb-0">
                     {{ $bukus->total() }} <span class="small text-muted fw-normal">judul buku</span>
                 </div>
@@ -47,19 +46,19 @@
         </div>
     </div>
 
-    <!-- Tabel Buku dalam Kategori Ini -->
+    <!-- Tabel Koleksi Buku di Kategori Ini -->
     <div class="ui-card">
         <div class="ui-card-header">
             <div class="d-flex align-items-center gap-2">
                 <span class="ui-card-title">
-                    <i class="bi bi-journal-text text-primary"></i> Koleksi Buku Terdaftar
+                    <i class="bi bi-journal-text text-primary"></i> Daftar Buku dalam Kategori Ini
                 </span>
                 <span class="badge" style="background-color: var(--del-soft-blue); color: var(--del-primary); border: 1px solid var(--del-border-blue); font-weight: 700;">
                     Total: {{ $bukus->total() }}
                 </span>
             </div>
             <a href="{{ route('buku.create') }}" class="btn btn-sm btn-del">
-                <i class="bi bi-plus-lg"></i> Tambah Buku
+                <i class="bi bi-plus-lg"></i> Tambah Buku Baru
             </a>
         </div>
 
@@ -67,20 +66,25 @@
             <table class="table table-del align-middle mb-0">
                 <thead>
                     <tr>
-                        <th style="width: 15%;">ISBN</th>
-                        <th style="width: 40%;">Judul &amp; Penulis</th>
+                        <th style="width: 16%;">ISBN</th>
+                        <th style="width: 44%;">Buku &amp; Penulis</th>
                         <th style="width: 12%;" class="text-center">Tahun</th>
-                        <th style="width: 15%;" class="text-center">Stok</th>
-                        <th style="width: 18%;" class="text-end">Aksi</th>
+                        <th style="width: 14%;" class="text-center">Stok</th>
+                        <th style="width: 14%;" class="text-end">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($bukus as $buku)
                         <tr>
                             <td>
-                                <span class="badge bg-light text-secondary border font-monospace py-1 px-2" style="font-size: 0.775rem;">
-                                    {{ $buku->isbn }}
-                                </span>
+                                <div class="d-flex align-items-center gap-1">
+                                    <span class="badge bg-light text-secondary border font-monospace py-1 px-2" style="font-size: 0.775rem;">
+                                        {{ $buku->isbn }}
+                                    </span>
+                                    <button type="button" class="btn-copy" onclick="copyToClipboard('{{ $buku->isbn }}', this)" title="Salin ISBN">
+                                        <i class="bi bi-copy"></i>
+                                    </button>
+                                </div>
                             </td>
                             <td>
                                 <a href="{{ route('buku.show', $buku) }}" class="fw-bold text-dark text-decoration-none">
@@ -96,11 +100,11 @@
                             <td class="text-center">
                                 @if ($buku->stok > 5)
                                     <span class="badge-status badge-status-tersedia">
-                                        {{ $buku->stok }} eks
+                                        {{ $buku->stok }} buku
                                     </span>
                                 @elseif ($buku->stok > 0)
                                     <span class="badge-status badge-status-menipis">
-                                        {{ $buku->stok }} eks
+                                        Sisa {{ $buku->stok }}
                                     </span>
                                 @else
                                     <span class="badge-status badge-status-habis">
@@ -113,7 +117,7 @@
                                     <a href="{{ route('buku.show', $buku) }}" class="btn btn-light border py-1 px-2" title="Detail">
                                         <i class="bi bi-eye text-primary"></i>
                                     </a>
-                                    <a href="{{ route('buku.edit', $buku) }}" class="btn btn-light border py-1 px-2" title="Edit">
+                                    <a href="{{ route('buku.edit', $buku) }}" class="btn btn-light border py-1 px-2" title="Ubah">
                                         <i class="bi bi-pencil" style="color: #0284C7;"></i>
                                     </a>
                                 </div>
@@ -126,8 +130,8 @@
                                     <div class="p-3 d-inline-flex rounded-circle mb-3" style="background-color: var(--del-soft-blue); color: var(--del-primary);">
                                         <i class="bi bi-journal-x fs-2"></i>
                                     </div>
-                                    <h6 class="fw-bold text-dark">Belum Ada Buku Terdaftar</h6>
-                                    <p class="small mb-3">Kategori ini belum memiliki koleksi buku yang terhubung.</p>
+                                    <h6 class="fw-bold text-dark">Belum Ada Buku</h6>
+                                    <p class="small mb-3">Kategori ini belum memiliki buku yang terdaftar di sistem.</p>
                                     <a href="{{ route('buku.create') }}" class="btn btn-del btn-sm">
                                         <i class="bi bi-plus-lg me-1"></i> Tambah Buku Baru
                                     </a>
@@ -140,8 +144,13 @@
         </div>
 
         @if ($bukus->hasPages())
-            <div class="p-3 border-top d-flex justify-content-center">
-                {{ $bukus->links() }}
+            <div class="p-3 border-top d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <div class="small text-muted">
+                    Halaman {{ $bukus->currentPage() }} dari {{ $bukus->lastPage() }}
+                </div>
+                <div>
+                    {{ $bukus->links() }}
+                </div>
             </div>
         @endif
     </div>

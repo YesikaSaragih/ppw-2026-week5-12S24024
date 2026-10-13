@@ -6,10 +6,10 @@
                 <div>
                     <div class="d-inline-flex align-items-center gap-2 px-2 py-1 rounded-pill mb-1" style="background-color: var(--del-soft-blue); border: 1px solid var(--del-border-blue);">
                         <i class="bi bi-pencil-fill text-primary" style="font-size: 0.75rem;"></i>
-                        <span class="small fw-bold text-primary" style="font-size: 0.725rem;">Perubahan Klasifikasi</span>
+                        <span class="small fw-bold text-primary" style="font-size: 0.725rem;">Ubah Kategori</span>
                     </div>
                     <h1 class="h4 fw-bold text-dark mb-1">Edit Kategori</h1>
-                    <p class="text-muted small mb-0">Perbarui rincian kode atau nama klasifikasi bidang ilmu.</p>
+                    <p class="text-muted small mb-0">Perbarui rincian kode atau nama bidang ilmu kategori buku.</p>
                 </div>
                 <div class="d-flex gap-2">
                     <a href="{{ route('kategori.show', $kategori) }}" class="btn btn-secondary-del btn-sm">
@@ -27,7 +27,7 @@
                         <span class="p-1 rounded bg-white border d-inline-flex align-items-center justify-content-center me-1" style="width: 26px; height: 26px; color: var(--del-primary);">
                             <i class="bi bi-pencil-square"></i>
                         </span>
-                        Perbarui Data Kategori
+                        Ubah Informasi Kategori
                     </span>
                 </div>
                 <div class="ui-card-body">
@@ -62,6 +62,7 @@
                             @error('nama_kategori')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
+                            <div class="form-text" style="font-size: 0.75rem;">Nama lengkap kelompok bidang ilmu.</div>
                         </div>
 
                         <div class="d-flex justify-content-end gap-2 pt-3 border-top">

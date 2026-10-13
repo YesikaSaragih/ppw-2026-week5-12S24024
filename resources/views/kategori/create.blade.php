@@ -6,13 +6,13 @@
                 <div>
                     <div class="d-inline-flex align-items-center gap-2 px-2 py-1 rounded-pill mb-1" style="background-color: var(--del-soft-blue); border: 1px solid var(--del-border-blue);">
                         <i class="bi bi-folder-plus text-primary" style="font-size: 0.75rem;"></i>
-                        <span class="small fw-bold text-primary" style="font-size: 0.725rem;">Klasifikasi Baru</span>
+                        <span class="small fw-bold text-primary" style="font-size: 0.725rem;">Kategori Baru</span>
                     </div>
                     <h1 class="h4 fw-bold text-dark mb-1">Tambah Kategori</h1>
-                    <p class="text-muted small mb-0">Daftarkan pengelompokan bidang keilmuan buku baru untuk perpustakaan Del.</p>
+                    <p class="text-muted small mb-0">Daftarkan kelompok bidang keilmuan buku baru untuk perpustakaan Del.</p>
                 </div>
                 <a href="{{ route('kategori.index') }}" class="btn btn-secondary-del btn-sm">
-                    <i class="bi bi-arrow-left"></i> Kembali
+                    <i class="bi bi-arrow-left"></i> Kembali ke Daftar
                 </a>
             </div>
 
@@ -22,7 +22,7 @@
                         <span class="p-1 rounded bg-white border d-inline-flex align-items-center justify-content-center me-1" style="width: 26px; height: 26px; color: var(--del-primary);">
                             <i class="bi bi-folder-plus"></i>
                         </span>
-                        Data Kategori Baru
+                        Formulir Kategori Baru
                     </span>
                 </div>
                 <div class="ui-card-body">
@@ -42,7 +42,7 @@
                             @error('kode_kategori')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                            <div class="form-text" style="font-size: 0.75rem;">Maksimal 10 karakter, harus unik.</div>
+                            <div class="form-text" style="font-size: 0.75rem;">Maksimal 10 karakter, harus unik (belum pernah dipakai).</div>
                         </div>
 
                         <div class="mb-4">
@@ -52,13 +52,13 @@
                                    id="nama_kategori"
                                    name="nama_kategori"
                                    value="{{ old('nama_kategori') }}"
-                                   placeholder="Contoh: Rekayasa Perangkat Lunak & Web"
+                                   placeholder="Contoh: Rekayasa Perangkat Lunak"
                                    maxlength="100"
                                    required>
                             @error('nama_kategori')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                            <div class="form-text" style="font-size: 0.75rem;">Nama lengkap klasifikasi keilmuan.</div>
+                            <div class="form-text" style="font-size: 0.75rem;">Tuliskan nama lengkap bidang keilmuan.</div>
                         </div>
 
                         <div class="d-flex justify-content-end gap-2 pt-3 border-top">

@@ -6,10 +6,10 @@
                 <div>
                     <div class="d-inline-flex align-items-center gap-2 px-2 py-1 rounded-pill mb-1" style="background-color: var(--del-soft-blue); border: 1px solid var(--del-border-blue);">
                         <i class="bi bi-plus-circle-fill text-primary" style="font-size: 0.75rem;"></i>
-                        <span class="small fw-bold text-primary" style="font-size: 0.725rem;">Formulir Pendaftaran Pustaka</span>
+                        <span class="small fw-bold text-primary" style="font-size: 0.725rem;">Formulir Buku Baru</span>
                     </div>
                     <h1 class="h4 fw-bold text-dark mb-1">Tambah Buku Baru</h1>
-                    <p class="text-muted small mb-0">Isi formulir secara lengkap untuk mendaftarkan katalog buku ke perpustakaan Del.</p>
+                    <p class="text-muted small mb-0">Isi formulir di bawah ini dengan lengkap untuk mendaftarkan buku ke perpustakaan Del.</p>
                 </div>
                 <a href="{{ route('buku.index') }}" class="btn btn-secondary-del btn-sm">
                     <i class="bi bi-arrow-left"></i> Kembali ke Daftar
@@ -19,14 +19,14 @@
             <form action="{{ route('buku.store') }}" method="POST">
                 @csrf
 
-                <!-- Seksi 1: Identitas Buku -->
+                <!-- Bagian 1: Identitas Buku -->
                 <div class="ui-card mb-4">
                     <div class="ui-card-header" style="background: linear-gradient(180deg, var(--del-lightest-blue) 0%, #FFFFFF 100%);">
                         <span class="ui-card-title">
                             <span class="p-1 rounded bg-white border d-inline-flex align-items-center justify-content-center me-1" style="width: 26px; height: 26px; color: var(--del-primary);">
                                 <i class="bi bi-info-circle"></i>
                             </span>
-                            1. Identitas Utama Buku
+                            1. Informasi Utama Buku
                         </span>
                     </div>
                     <div class="ui-card-body">
@@ -43,6 +43,7 @@
                                 @error('isbn')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
+                                <div class="form-text" style="font-size: 0.75rem;">Nomor ISBN unik (10 sampai 20 karakter).</div>
                             </div>
                             <div class="col-md-8">
                                 <label for="judul" class="form-label">Judul Buku <span class="text-danger">*</span></label>
@@ -51,25 +52,25 @@
                                        id="judul"
                                        name="judul"
                                        value="{{ old('judul') }}"
-                                       placeholder="Contoh: Pemrograman Web dengan Laravel Modern"
+                                       placeholder="Contoh: Algoritma dan Struktur Data"
                                        required>
                                 @error('judul')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                                <div class="form-text" style="font-size: 0.75rem;">Minimal 5 karakter, maksimal 200 karakter.</div>
+                                <div class="form-text" style="font-size: 0.75rem;">Minimal 5 karakter sesuai sampul buku.</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Seksi 2: Kepengarangan & Penerbitan -->
+                <!-- Bagian 2: Penulis & Penerbit -->
                 <div class="ui-card mb-4">
                     <div class="ui-card-header" style="background: linear-gradient(180deg, var(--del-lightest-blue) 0%, #FFFFFF 100%);">
                         <span class="ui-card-title">
                             <span class="p-1 rounded bg-white border d-inline-flex align-items-center justify-content-center me-1" style="width: 26px; height: 26px; color: var(--del-primary);">
                                 <i class="bi bi-person-badge"></i>
                             </span>
-                            2. Kepengarangan &amp; Penerbit
+                            2. Penulis dan Penerbit
                         </span>
                     </div>
                     <div class="ui-card-body">
@@ -81,7 +82,7 @@
                                        id="penulis"
                                        name="penulis"
                                        value="{{ old('penulis') }}"
-                                       placeholder="Contoh: Chandro Pardede, M.Sc."
+                                       placeholder="Contoh: Dr. Arnaldo Marulitua Sinaga"
                                        required>
                                 @error('penulis')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -94,7 +95,7 @@
                                        id="penerbit"
                                        name="penerbit"
                                        value="{{ old('penerbit') }}"
-                                       placeholder="Contoh: Del Press"
+                                       placeholder="Contoh: Penerbit Informatika"
                                        required>
                                 @error('penerbit')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -104,14 +105,14 @@
                     </div>
                 </div>
 
-                <!-- Seksi 3: Klasifikasi, Tahun, & Inventaris -->
+                <!-- Bagian 3: Kategori, Tahun, & Stok -->
                 <div class="ui-card mb-4">
                     <div class="ui-card-header" style="background: linear-gradient(180deg, var(--del-lightest-blue) 0%, #FFFFFF 100%);">
                         <span class="ui-card-title">
                             <span class="p-1 rounded bg-white border d-inline-flex align-items-center justify-content-center me-1" style="width: 26px; height: 26px; color: var(--del-primary);">
                                 <i class="bi bi-tags"></i>
                             </span>
-                            3. Klasifikasi &amp; Inventaris
+                            3. Kategori dan Persediaan Stok
                         </span>
                     </div>
                     <div class="ui-card-body">
@@ -141,59 +142,64 @@
                                        name="tahun_terbit"
                                        value="{{ old('tahun_terbit', date('Y')) }}"
                                        min="1900"
-                                       max="{{ date('Y') }}"
+                                       max="{{ date('Y') + 1 }}"
+                                       placeholder="{{ date('Y') }}"
                                        required>
                                 @error('tahun_terbit')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="col-md-4">
-                                <label for="stok" class="form-label">Jumlah Stok (Eksemplar) <span class="text-danger">*</span></label>
-                                <input type="number"
-                                       class="form-control @error('stok') is-invalid @enderror"
-                                       id="stok"
-                                       name="stok"
-                                       value="{{ old('stok', 1) }}"
-                                       min="0"
-                                       required>
+                                <label for="stok" class="form-label">Jumlah Stok Buku <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <input type="number"
+                                           class="form-control @error('stok') is-invalid @enderror"
+                                           id="stok"
+                                           name="stok"
+                                           value="{{ old('stok', 1) }}"
+                                           min="0"
+                                           required>
+                                    <span class="input-group-text bg-light text-muted">eksemplar</span>
+                                </div>
                                 @error('stok')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
                                 @enderror
+                                <div class="form-text" style="font-size: 0.75rem;">Isi 0 jika buku fisik sedang belum tersedia.</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Seksi 4: Sinopsis -->
+                <!-- Bagian 4: Sinopsis / Ringkasan -->
                 <div class="ui-card mb-4">
                     <div class="ui-card-header" style="background: linear-gradient(180deg, var(--del-lightest-blue) 0%, #FFFFFF 100%);">
                         <span class="ui-card-title">
                             <span class="p-1 rounded bg-white border d-inline-flex align-items-center justify-content-center me-1" style="width: 26px; height: 26px; color: var(--del-primary);">
-                                <i class="bi bi-text-left"></i>
+                                <i class="bi bi-text-paragraph"></i>
                             </span>
-                            4. Deskripsi Sinopsis
+                            4. Sinopsis / Ringkasan Buku (Opsional)
                         </span>
                     </div>
                     <div class="ui-card-body">
-                        <label for="sinopsis" class="form-label">Sinopsis / Ringkasan Isi</label>
                         <textarea class="form-control @error('sinopsis') is-invalid @enderror"
                                   id="sinopsis"
                                   name="sinopsis"
                                   rows="4"
-                                  placeholder="Tulis ringkasan singkat konten buku ini...">{{ old('sinopsis') }}</textarea>
+                                  placeholder="Tuliskan ringkasan singkat mengenai topik atau isi buku ini...">{{ old('sinopsis') }}</textarea>
                         @error('sinopsis')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
+                        <div class="form-text" style="font-size: 0.75rem;">Membantu pembaca memahami topik buku sebelum meminjam.</div>
                     </div>
                 </div>
 
-                <!-- Action Bar -->
-                <div class="d-flex justify-content-end align-items-center gap-2 mb-5">
+                <!-- Tombol Simpan & Batal -->
+                <div class="d-flex justify-content-end gap-2 mb-5">
                     <a href="{{ route('buku.index') }}" class="btn btn-secondary-del">
                         Batal
                     </a>
                     <button type="submit" class="btn btn-del">
-                        <i class="bi bi-check2"></i> Simpan Buku Baru
+                        <i class="bi bi-check-lg"></i> Simpan Buku Baru
                     </button>
                 </div>
             </form>
