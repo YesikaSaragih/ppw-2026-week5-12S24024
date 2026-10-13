@@ -2,12 +2,12 @@
     <!-- Header Halaman -->
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
         <div>
-            <div class="d-inline-flex align-items-center gap-2 px-2 py-1 rounded-pill mb-2" style="background-color: var(--del-soft-blue); border: 1px solid var(--del-border-blue);">
-                <i class="bi bi-mortarboard-fill text-primary" style="font-size: 0.8rem;"></i>
-                <span class="small fw-bold text-primary" style="font-size: 0.75rem;">Institut Teknologi Del &bull; Sistem Informasi Perpustakaan</span>
+            <div class="d-inline-flex align-items-center gap-2 px-2 py-1 rounded-pill mb-2" style="background-color: var(--del-soft-purple); border: 1px solid var(--del-border-purple);">
+                <i class="bi bi-mortarboard-fill text-primary" style="font-size: 0.8rem; color: var(--del-primary) !important;"></i>
+                <span class="small fw-bold" style="font-size: 0.75rem; color: var(--del-primary);">Institut Teknologi Del &bull; Sistem Informasi Perpustakaan</span>
             </div>
             <h1 class="h3 fw-bold text-dark mb-1">Dashboard Perpustakaan</h1>
-            <p class="text-muted small mb-0">Selamat datang di sistem manajemen buku dan koleksi pustaka kampus Del.</p>
+            <p class="text-muted small mb-0">Selamat datang di sistem manajemen buku dan koleksi pustaka kampus Institut Teknologi Del.</p>
         </div>
         <div class="d-flex align-items-center gap-2">
             <a href="{{ route('buku.create') }}" class="btn btn-del btn-sm">
@@ -19,26 +19,26 @@
         </div>
     </div>
 
-    <!-- Banner Informasi SIPUS-Del (Bahasa Ramah, Lugas, & Tidak Ambigu) -->
-    <div class="ui-card p-4 mb-4" style="background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 55%, #BAE6FD 100%); border: 1px solid var(--del-border-blue); box-shadow: 0 4px 15px rgba(2, 132, 199, 0.08);">
+    <!-- Banner Informasi SIPUS-Del (Bertema Del Royal Purple) -->
+    <div class="ui-card p-4 mb-4" style="background: linear-gradient(135deg, #FAF5FF 0%, #F3E8FF 55%, #E9D5FF 100%); border: 1px solid var(--del-border-purple); box-shadow: 0 4px 15px rgba(76, 29, 149, 0.08);">
         <div class="row align-items-center g-4">
             <div class="col-lg-8">
                 <div class="d-flex align-items-center gap-2 mb-2">
-                    <span class="badge" style="background-color: #0284C7; color: #FFFFFF; font-size: 0.75rem; font-weight: 700; padding: 0.35rem 0.65rem;">Tentang Aplikasi</span>
+                    <span class="badge" style="background-color: #4C1D95; color: #FFFFFF; font-size: 0.75rem; font-weight: 700; padding: 0.35rem 0.65rem;">Tentang Aplikasi</span>
                     <span class="text-muted small fw-semibold">Institut Teknologi Del &bull; Kampus Laguboti</span>
                 </div>
                 <h2 class="h4 fw-bold mb-2" style="color: var(--del-deep); letter-spacing: -0.02em;">
                     Mengenal SIPUS-Del
                 </h2>
                 <p class="text-secondary small mb-3" style="line-height: 1.75; font-size: 0.925rem;">
-                    <strong>SIPUS-Del</strong> adalah aplikasi perpustakaan resmi yang digunakan untuk mengelola seluruh data buku di kampus Institut Teknologi Del. Aplikasi ini memudahkan pustakawan dan mahasiswa dalam mencari buku referensi kuliah, mengelompokkan buku berdasarkan bidang keilmuan, serta memantau sisa buku yang siap dipinjam secara langsung.
+                    <strong>SIPUS-Del</strong> adalah aplikasi perpustakaan resmi yang digunakan untuk mengelola seluruh data buku di kampus <strong>Institut Teknologi Del</strong>. Aplikasi ini memudahkan pustakawan dan mahasiswa dalam mencari buku referensi kuliah, mengelompokkan buku berdasarkan bidang keilmuan, serta memantau sisa buku yang siap dipinjam secara langsung.
                 </p>
                 <div class="d-flex flex-wrap gap-2">
                     <span class="badge bg-white text-dark border px-3 py-2 fw-semibold" style="font-size: 0.775rem;">
-                        <i class="bi bi-award-fill text-warning me-1"></i> Nilai Kampus: MarTuhan, Marroha, Marbisuk
+                        <i class="bi bi-award-fill text-warning me-1"></i> Nilai Luhur Del: MarTuhan, Marroha, Marbisuk
                     </span>
                     <span class="badge bg-white text-dark border px-3 py-2 fw-semibold" style="font-size: 0.775rem;">
-                        <i class="bi bi-book-fill text-primary me-1"></i> Buku Kuliah &amp; Referensi Lengkap
+                        <i class="bi bi-book-fill me-1" style="color: var(--del-primary);"></i> Buku Kuliah &amp; Referensi Lengkap
                     </span>
                     <span class="badge bg-white text-dark border px-3 py-2 fw-semibold" style="font-size: 0.775rem;">
                         <i class="bi bi-check2-circle text-success me-1"></i> Informasi Stok Selalu Akurat
@@ -46,21 +46,21 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="bg-white p-3 rounded-3 border" style="border-color: var(--del-border-blue) !important; box-shadow: 0 2px 8px rgba(12, 74, 110, 0.06);">
+                <div class="bg-white p-3 rounded-3 border" style="border-color: var(--del-border-purple) !important; box-shadow: 0 2px 8px rgba(76, 29, 149, 0.06);">
                     <div class="fw-bold text-dark small mb-2 d-flex align-items-center gap-2">
                         <i class="bi bi-lightbulb-fill text-warning"></i> 3 Manfaat Utama:
                     </div>
                     <ul class="list-unstyled mb-0 small text-secondary" style="line-height: 1.8; font-size: 0.825rem;">
                         <li class="d-flex align-items-start gap-2 mb-1">
-                            <i class="bi bi-check-circle-fill text-primary mt-1"></i>
+                            <i class="bi bi-check-circle-fill mt-1" style="color: var(--del-primary);"></i>
                             <span><strong>Pencarian Mudah:</strong> Temukan buku berdasarkan judul, nama penulis, atau nomor ISBN.</span>
                         </li>
                         <li class="d-flex align-items-start gap-2 mb-1">
-                            <i class="bi bi-check-circle-fill text-primary mt-1"></i>
+                            <i class="bi bi-check-circle-fill mt-1" style="color: var(--del-primary);"></i>
                             <span><strong>Kategori Rapi:</strong> Buku terbagi jelas dalam kelompok ilmu Informatika, SI, AI, dan Sains.</span>
                         </li>
                         <li class="d-flex align-items-start gap-2">
-                            <i class="bi bi-check-circle-fill text-primary mt-1"></i>
+                            <i class="bi bi-check-circle-fill mt-1" style="color: var(--del-primary);"></i>
                             <span><strong>Pantau Sisa Buku:</strong> Tahu persis apakah buku masih ada di rak atau sedang kosong.</span>
                         </li>
                     </ul>
@@ -69,21 +69,21 @@
         </div>
     </div>
 
-    <!-- 4 Kartu Statistik Interaktif (Dapat Diklik Langsung) -->
+    <!-- 4 Kartu Statistik Interaktif -->
     <div class="row g-3 mb-4">
         <!-- Kartu 1: Total Judul Buku -->
         <div class="col-sm-6 col-xl-3">
             <a href="{{ route('buku.index') }}" class="stat-card">
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <span class="text-muted small fw-bold text-uppercase" style="font-size: 0.725rem; letter-spacing: 0.05em;">Total Judul Buku</span>
-                    <div class="stat-icon" style="background-color: var(--del-soft-blue); color: var(--del-primary);">
+                    <div class="stat-icon" style="background-color: var(--del-soft-purple); color: var(--del-primary);">
                         <i class="bi bi-journal-text"></i>
                     </div>
                 </div>
                 <div class="h2 fw-bold mb-1" style="color: var(--del-deep);">{{ number_format($totalJudul) }}</div>
                 <div class="small text-muted d-flex align-items-center justify-content-between">
                     <span>Judul buku terdaftar</span>
-                    <span class="text-primary fw-semibold" style="font-size: 0.75rem;">Lihat semua &rarr;</span>
+                    <span class="fw-semibold" style="font-size: 0.75rem; color: var(--del-primary);">Lihat semua &rarr;</span>
                 </div>
             </a>
         </div>
@@ -93,14 +93,14 @@
             <a href="{{ route('kategori.index') }}" class="stat-card">
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <span class="text-muted small fw-bold text-uppercase" style="font-size: 0.725rem; letter-spacing: 0.05em;">Kategori Buku</span>
-                    <div class="stat-icon" style="background-color: #EEF2FF; color: #4F46E5;">
+                    <div class="stat-icon" style="background-color: #EDE9FE; color: #6D28D9;">
                         <i class="bi bi-tags"></i>
                     </div>
                 </div>
-                <div class="h2 fw-bold mb-1" style="color: #312E81;">{{ number_format($totalKategori) }}</div>
+                <div class="h2 fw-bold mb-1" style="color: #4C1D95;">{{ number_format($totalKategori) }}</div>
                 <div class="small text-muted d-flex align-items-center justify-content-between">
                     <span>Bidang keilmuan</span>
-                    <span class="text-indigo fw-semibold" style="font-size: 0.75rem; color: #4F46E5;">Lihat semua &rarr;</span>
+                    <span class="fw-semibold" style="font-size: 0.75rem; color: #6D28D9;">Lihat semua &rarr;</span>
                 </div>
             </a>
         </div>
@@ -149,7 +149,7 @@
                 <div class="ui-card-header">
                     <div>
                         <h2 class="ui-card-title">
-                            <i class="bi bi-clock-history text-primary"></i> Buku Terbaru Ditambahkan
+                            <i class="bi bi-clock-history" style="color: var(--del-primary);"></i> Buku Terbaru Ditambahkan
                         </h2>
                         <div class="text-muted small">Daftar buku yang baru saja didaftarkan ke sistem perpustakaan</div>
                     </div>
@@ -216,14 +216,14 @@
                                     </td>
                                     <td class="text-end">
                                         <a href="{{ route('buku.show', $buku) }}" class="btn btn-sm btn-light border py-1 px-2" title="Lihat Informasi Buku">
-                                            <i class="bi bi-arrow-up-right text-primary"></i>
+                                            <i class="bi bi-arrow-up-right" style="color: var(--del-primary);"></i>
                                         </a>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
                                     <td colspan="5" class="text-center py-5 text-muted">
-                                        <i class="bi bi-journal-x fs-2 d-block mb-2 text-primary"></i>
+                                        <i class="bi bi-journal-x fs-2 d-block mb-2" style="color: var(--del-primary);"></i>
                                         Belum ada koleksi buku yang terdaftar di perpustakaan.
                                     </td>
                                 </tr>
@@ -260,7 +260,7 @@
             <!-- Card Panduan Status Stok Buku -->
             <div class="ui-card p-4">
                 <h3 class="h6 fw-bold text-dark mb-3 d-flex align-items-center gap-2">
-                    <i class="bi bi-info-circle-fill text-primary"></i> Keterangan Status Stok
+                    <i class="bi bi-info-circle-fill" style="color: var(--del-primary);"></i> Keterangan Status Stok
                 </h3>
                 <div class="d-flex flex-column gap-3 small">
                     <div class="d-flex align-items-start gap-2">

@@ -4,9 +4,9 @@
             <!-- Header Navigasi -->
             <div class="d-flex align-items-center justify-content-between mb-4">
                 <div>
-                    <div class="d-inline-flex align-items-center gap-2 px-2 py-1 rounded-pill mb-1" style="background-color: var(--del-soft-blue); border: 1px solid var(--del-border-blue);">
-                        <i class="bi bi-plus-circle-fill text-primary" style="font-size: 0.75rem;"></i>
-                        <span class="small fw-bold text-primary" style="font-size: 0.725rem;">Formulir Buku Baru</span>
+                    <div class="d-inline-flex align-items-center gap-2 px-2 py-1 rounded-pill mb-1" style="background-color: var(--del-soft-purple); border: 1px solid var(--del-border-purple);">
+                        <i class="bi bi-plus-circle-fill" style="font-size: 0.75rem; color: var(--del-primary);"></i>
+                        <span class="small fw-bold" style="font-size: 0.725rem; color: var(--del-primary);">Formulir Buku Baru</span>
                     </div>
                     <h1 class="h4 fw-bold text-dark mb-1">Tambah Buku Baru</h1>
                     <p class="text-muted small mb-0">Isi formulir di bawah ini dengan lengkap untuk mendaftarkan buku ke perpustakaan Del.</p>
@@ -21,7 +21,7 @@
 
                 <!-- Bagian 1: Identitas Buku -->
                 <div class="ui-card mb-4">
-                    <div class="ui-card-header" style="background: linear-gradient(180deg, var(--del-lightest-blue) 0%, #FFFFFF 100%);">
+                    <div class="ui-card-header" style="background: linear-gradient(180deg, var(--del-lightest-purple) 0%, #FFFFFF 100%);">
                         <span class="ui-card-title">
                             <span class="p-1 rounded bg-white border d-inline-flex align-items-center justify-content-center me-1" style="width: 26px; height: 26px; color: var(--del-primary);">
                                 <i class="bi bi-info-circle"></i>
@@ -65,7 +65,7 @@
 
                 <!-- Bagian 2: Penulis & Penerbit -->
                 <div class="ui-card mb-4">
-                    <div class="ui-card-header" style="background: linear-gradient(180deg, var(--del-lightest-blue) 0%, #FFFFFF 100%);">
+                    <div class="ui-card-header" style="background: linear-gradient(180deg, var(--del-lightest-purple) 0%, #FFFFFF 100%);">
                         <span class="ui-card-title">
                             <span class="p-1 rounded bg-white border d-inline-flex align-items-center justify-content-center me-1" style="width: 26px; height: 26px; color: var(--del-primary);">
                                 <i class="bi bi-person-badge"></i>
@@ -107,7 +107,7 @@
 
                 <!-- Bagian 3: Kategori, Tahun, & Stok -->
                 <div class="ui-card mb-4">
-                    <div class="ui-card-header" style="background: linear-gradient(180deg, var(--del-lightest-blue) 0%, #FFFFFF 100%);">
+                    <div class="ui-card-header" style="background: linear-gradient(180deg, var(--del-lightest-purple) 0%, #FFFFFF 100%);">
                         <span class="ui-card-title">
                             <span class="p-1 rounded bg-white border d-inline-flex align-items-center justify-content-center me-1" style="width: 26px; height: 26px; color: var(--del-primary);">
                                 <i class="bi bi-tags"></i>
@@ -172,7 +172,7 @@
 
                 <!-- Bagian 4: Sinopsis / Ringkasan -->
                 <div class="ui-card mb-4">
-                    <div class="ui-card-header" style="background: linear-gradient(180deg, var(--del-lightest-blue) 0%, #FFFFFF 100%);">
+                    <div class="ui-card-header" style="background: linear-gradient(180deg, var(--del-lightest-purple) 0%, #FFFFFF 100%);">
                         <span class="ui-card-title">
                             <span class="p-1 rounded bg-white border d-inline-flex align-items-center justify-content-center me-1" style="width: 26px; height: 26px; color: var(--del-primary);">
                                 <i class="bi bi-text-paragraph"></i>

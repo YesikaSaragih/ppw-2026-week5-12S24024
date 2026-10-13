@@ -2,9 +2,9 @@
     <!-- Header Halaman -->
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
         <div>
-            <div class="d-inline-flex align-items-center gap-2 px-2 py-1 rounded-pill mb-1" style="background-color: var(--del-soft-blue); border: 1px solid var(--del-border-blue);">
-                <i class="bi bi-diagram-3-fill text-primary" style="font-size: 0.75rem;"></i>
-                <span class="small fw-bold text-primary" style="font-size: 0.725rem;">Pengelompokan Buku</span>
+            <div class="d-inline-flex align-items-center gap-2 px-2 py-1 rounded-pill mb-1" style="background-color: var(--del-soft-purple); border: 1px solid var(--del-border-purple);">
+                <i class="bi bi-diagram-3-fill" style="font-size: 0.75rem; color: var(--del-primary);"></i>
+                <span class="small fw-bold" style="font-size: 0.725rem; color: var(--del-primary);">Pengelompokan Buku</span>
             </div>
             <h1 class="h4 fw-bold text-dark mb-1">Manajemen Kategori</h1>
             <p class="text-muted small mb-0">Kelola kelompok bidang ilmu untuk merapikan dan memudahkan pencarian buku di perpustakaan Del.</p>
@@ -17,12 +17,12 @@
     </div>
 
     <!-- Panel Pencarian Kategori -->
-    <div class="ui-card p-3 mb-4" style="background: linear-gradient(180deg, #FFFFFF 0%, var(--del-lightest-blue) 100%);">
+    <div class="ui-card p-3 mb-4" style="background: linear-gradient(180deg, #FFFFFF 0%, var(--del-lightest-purple) 100%);">
         <form action="{{ route('kategori.index') }}" method="GET" class="row g-2 align-items-center">
             <div class="col-md-9">
                 <div class="input-group">
                     <span class="input-group-text bg-white border-end-0 text-muted">
-                        <i class="bi bi-search text-primary"></i>
+                        <i class="bi bi-search" style="color: var(--del-primary);"></i>
                     </span>
                     <input type="text"
                            class="form-control border-start-0 ps-0"
@@ -50,9 +50,9 @@
         <div class="ui-card-header">
             <div class="d-flex align-items-center gap-2">
                 <span class="ui-card-title">
-                    <i class="bi bi-tags text-primary"></i> Daftar Kategori Bidang Ilmu
+                    <i class="bi bi-tags" style="color: var(--del-primary);"></i> Daftar Kategori Bidang Ilmu
                 </span>
-                <span class="badge" style="background-color: var(--del-soft-blue); color: var(--del-primary); border: 1px solid var(--del-border-blue); font-weight: 700;">
+                <span class="badge" style="background-color: var(--del-soft-purple); color: var(--del-primary); border: 1px solid var(--del-border-purple); font-weight: 700;">
                     Total: {{ $kategoris->total() }}
                 </span>
             </div>
@@ -77,7 +77,7 @@
                     @forelse ($kategoris as $kategori)
                         <tr>
                             <td>
-                                <span class="badge font-monospace py-1 px-2" style="background-color: var(--del-lightest-blue); color: var(--del-primary); border: 1px solid var(--del-border-blue); font-size: 0.825rem;">
+                                <span class="badge font-monospace py-1 px-2" style="background-color: var(--del-lightest-purple); color: var(--del-primary); border: 1px solid var(--del-border-purple); font-size: 0.825rem;">
                                     {{ $kategori->kode_kategori }}
                                 </span>
                             </td>
@@ -94,10 +94,10 @@
                             <td class="text-end">
                                 <div class="btn-group btn-group-sm" role="group">
                                     <a href="{{ route('kategori.show', $kategori) }}" class="btn btn-light border py-1 px-2" title="Lihat Buku Terdaftar">
-                                        <i class="bi bi-eye text-primary"></i>
+                                        <i class="bi bi-eye" style="color: var(--del-primary);"></i>
                                     </a>
                                     <a href="{{ route('kategori.edit', $kategori) }}" class="btn btn-light border py-1 px-2" title="Ubah Nama Kategori">
-                                        <i class="bi bi-pencil" style="color: #0284C7;"></i>
+                                        <i class="bi bi-pencil" style="color: var(--del-primary);"></i>
                                     </a>
                                     <button type="button"
                                             class="btn btn-light border text-danger py-1 px-2"
@@ -113,7 +113,7 @@
                             <td colspan="4" class="text-center py-5">
                                 @if (request('search'))
                                     <div class="py-4">
-                                        <div class="p-3 d-inline-flex rounded-circle mb-3" style="background-color: var(--del-soft-blue); color: var(--del-primary);">
+                                        <div class="p-3 d-inline-flex rounded-circle mb-3" style="background-color: var(--del-soft-purple); color: var(--del-primary);">
                                             <i class="bi bi-search fs-2"></i>
                                         </div>
                                         <h5 class="fw-bold text-dark">Kategori Tidak Ditemukan</h5>
@@ -124,7 +124,7 @@
                                     </div>
                                 @else
                                     <div class="py-4">
-                                        <div class="p-3 d-inline-flex rounded-circle mb-3" style="background-color: var(--del-soft-blue); color: var(--del-primary);">
+                                        <div class="p-3 d-inline-flex rounded-circle mb-3" style="background-color: var(--del-soft-purple); color: var(--del-primary);">
                                             <i class="bi bi-tags fs-2"></i>
                                         </div>
                                         <h5 class="fw-bold text-dark">Belum Ada Kategori</h5>

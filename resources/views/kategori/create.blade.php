@@ -4,9 +4,9 @@
             <!-- Header Navigasi -->
             <div class="d-flex align-items-center justify-content-between mb-4">
                 <div>
-                    <div class="d-inline-flex align-items-center gap-2 px-2 py-1 rounded-pill mb-1" style="background-color: var(--del-soft-blue); border: 1px solid var(--del-border-blue);">
-                        <i class="bi bi-folder-plus text-primary" style="font-size: 0.75rem;"></i>
-                        <span class="small fw-bold text-primary" style="font-size: 0.725rem;">Kategori Baru</span>
+                    <div class="d-inline-flex align-items-center gap-2 px-2 py-1 rounded-pill mb-1" style="background-color: var(--del-soft-purple); border: 1px solid var(--del-border-purple);">
+                        <i class="bi bi-folder-plus" style="font-size: 0.75rem; color: var(--del-primary);"></i>
+                        <span class="small fw-bold" style="font-size: 0.725rem; color: var(--del-primary);">Kategori Baru</span>
                     </div>
                     <h1 class="h4 fw-bold text-dark mb-1">Tambah Kategori</h1>
                     <p class="text-muted small mb-0">Daftarkan kelompok bidang keilmuan buku baru untuk perpustakaan Del.</p>
@@ -17,7 +17,7 @@
             </div>
 
             <div class="ui-card">
-                <div class="ui-card-header" style="background: linear-gradient(180deg, var(--del-lightest-blue) 0%, #FFFFFF 100%);">
+                <div class="ui-card-header" style="background: linear-gradient(180deg, var(--del-lightest-purple) 0%, #FFFFFF 100%);">
                     <span class="ui-card-title">
                         <span class="p-1 rounded bg-white border d-inline-flex align-items-center justify-content-center me-1" style="width: 26px; height: 26px; color: var(--del-primary);">
                             <i class="bi bi-folder-plus"></i>

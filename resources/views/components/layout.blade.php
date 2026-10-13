@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ $title ?? 'SIPUS-Del' }} — Sistem Informasi Perpustakaan</title>
+    <title>{{ $title ?? 'SIPUS-Del' }} — Institut Teknologi Del</title>
 
     <!-- Bootstrap 5.3.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -17,20 +17,20 @@
 
     <style>
         :root {
-            /* Tema Biru Muda Modern & Minimalis (Light Sky Blue Theme) */
-            --del-primary: #0284C7;             /* Biru Muda Utama (Sky Blue 600) */
-            --del-primary-hover: #0369A1;       /* Biru Lebih Gelap saat Hover (Sky Blue 700) */
-            --del-primary-light: #38BDF8;       /* Biru Terang (Sky Blue 400) */
-            --del-deep: #0C4A6E;                /* Biru Navy Pekat untuk Judul */
-            --del-soft-blue: #E0F2FE;           /* Latar Biru Muda Halus (Sky Blue 100) */
-            --del-lightest-blue: #F0F9FF;       /* Latar Biru Sangat Lembut (Sky Blue 50) */
-            --del-border-blue: #BAE6FD;         /* Garis Tepi Aksen Biru (Sky Blue 200) */
+            /* Tema Resmi Institut Teknologi Del Sesuai Modul Praktikum: Del Royal Purple (#4C1D95) */
+            --del-primary: #4C1D95;             /* Del Royal Purple (Warna Utama Del) */
+            --del-primary-hover: #3B0764;       /* Del Deep Purple (Hover State) */
+            --del-primary-light: #7C3AED;       /* Purple 600 - Aksen Cerah */
+            --del-deep: #2E1065;                /* Purple 950 - Teks Penegasan / Header */
+            --del-soft-purple: #F3E8FF;         /* Purple 100 - Latar Lembut untuk Badge & Item Aktif */
+            --del-lightest-purple: #FAF5FF;     /* Purple 50 - Latar Sangat Lembut */
+            --del-border-purple: #E9D5FF;       /* Purple 200 - Garis Aksen Ungu */
             
-            --del-bg: #F8FAFC;                  /* Abu-abu Terang Bersih (Slate 50) */
+            --del-bg: #F8FAFC;                  /* Slate 50 - Latar Bersih */
             --del-surface: #FFFFFF;             /* Putih Murni */
-            --del-text-main: #0F172A;           /* Teks Utama Gelap (Slate 900) */
-            --del-text-muted: #64748B;          /* Teks Keterangan Abu-abu (Slate 500) */
-            --del-border: #E2E8F0;              /* Garis Pembatas Lembut (Slate 200) */
+            --del-text-main: #0F172A;           /* Slate 900 - Teks Utama */
+            --del-text-muted: #64748B;          /* Slate 500 - Teks Sekunder */
+            --del-border: #E2E8F0;              /* Slate 200 - Garis Pembatas Lembut */
 
             --del-success-bg: #ECFDF5;
             --del-success-text: #065F46;
@@ -43,6 +43,79 @@
             --del-danger-bg: #FEF2F2;
             --del-danger-text: #991B1B;
             --del-danger-border: #FECACA;
+        }
+
+        /* Class Spesifikasi Khusus Modul Praktikum PPW */
+        .navbar-del {
+            background-color: #4C1D95 !important;
+        }
+
+        .btn-del {
+            background-color: #4C1D95 !important;
+            color: #ffffff !important;
+            border: 1px solid #4C1D95 !important;
+            font-weight: 600;
+            font-size: 0.875rem;
+            border-radius: 8px;
+            padding: 0.55rem 1.1rem;
+            transition: all 0.18s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 2px 4px rgba(76, 29, 149, 0.2);
+        }
+
+        .btn-del:hover {
+            background-color: #3B0764 !important;
+            border-color: #3B0764 !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 12px rgba(76, 29, 149, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .btn-del:active {
+            transform: translateY(0);
+        }
+
+        .btn-outline-del {
+            background-color: var(--del-lightest-purple);
+            color: var(--del-primary) !important;
+            border: 1px solid var(--del-border-purple);
+            font-weight: 600;
+            font-size: 0.875rem;
+            border-radius: 8px;
+            padding: 0.55rem 1.1rem;
+            transition: all 0.18s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-outline-del:hover {
+            background-color: var(--del-soft-purple);
+            border-color: var(--del-primary);
+            color: var(--del-primary-hover) !important;
+            box-shadow: 0 2px 8px rgba(76, 29, 149, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary-del {
+            background-color: #F1F5F9;
+            color: #334155 !important;
+            border: 1px solid #CBD5E1;
+            font-weight: 500;
+            font-size: 0.875rem;
+            border-radius: 8px;
+            padding: 0.55rem 1rem;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-secondary-del:hover {
+            background-color: #E2E8F0;
+            color: #0F172A !important;
         }
 
         body {
@@ -82,22 +155,22 @@
             border-bottom: 1px solid var(--del-border);
             text-decoration: none;
             color: var(--del-text-main);
-            background: linear-gradient(180deg, #FFFFFF 0%, var(--del-lightest-blue) 100%);
+            background: linear-gradient(180deg, #FFFFFF 0%, var(--del-lightest-purple) 100%);
         }
 
         .sidebar-brand-icon {
             width: 44px;
             height: 44px;
-            background: linear-gradient(135deg, var(--del-soft-blue) 0%, #BAE6FD 100%);
+            background: linear-gradient(135deg, var(--del-soft-purple) 0%, #E9D5FF 100%);
             color: var(--del-primary);
-            border: 1px solid var(--del-border-blue);
+            border: 1px solid var(--del-border-purple);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.35rem;
             flex-shrink: 0;
-            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.15);
+            box-shadow: 0 4px 10px rgba(76, 29, 149, 0.15);
             transition: transform 0.2s ease;
         }
 
@@ -164,7 +237,7 @@
 
         .sidebar-nav-item:hover {
             color: var(--del-primary);
-            background-color: var(--del-lightest-blue);
+            background-color: var(--del-lightest-purple);
             transform: translateX(3px);
         }
 
@@ -175,9 +248,9 @@
 
         .sidebar-nav-item.active {
             color: var(--del-primary);
-            background-color: var(--del-soft-blue);
+            background-color: var(--del-soft-purple);
             font-weight: 600;
-            box-shadow: inset 0 0 0 1px var(--del-border-blue);
+            box-shadow: inset 0 0 0 1px var(--del-border-purple);
         }
 
         .sidebar-nav-item.active i {
@@ -199,8 +272,8 @@
         .sidebar-quick-action {
             margin: 0.5rem 0.85rem 1rem;
             padding: 1rem;
-            background: linear-gradient(135deg, var(--del-lightest-blue) 0%, var(--del-soft-blue) 100%);
-            border: 1px dashed var(--del-border-blue);
+            background: linear-gradient(135deg, var(--del-lightest-purple) 0%, var(--del-soft-purple) 100%);
+            border: 1px dashed var(--del-border-purple);
             border-radius: 12px;
         }
 
@@ -296,8 +369,8 @@
 
         .stat-card:hover {
             transform: translateY(-4px);
-            border-color: var(--del-border-blue);
-            box-shadow: 0 10px 20px -3px rgba(2, 132, 199, 0.12);
+            border-color: var(--del-border-purple);
+            box-shadow: 0 10px 20px -3px rgba(76, 29, 149, 0.12);
             color: inherit;
         }
 
@@ -315,74 +388,6 @@
 
         .stat-card:hover .stat-icon {
             transform: scale(1.1);
-        }
-
-        /* Modern Buttons (Biru Muda Aksen) */
-        .btn-del {
-            background-color: var(--del-primary);
-            color: #FFFFFF !important;
-            border: 1px solid var(--del-primary);
-            font-weight: 600;
-            font-size: 0.875rem;
-            border-radius: 8px;
-            padding: 0.55rem 1.1rem;
-            transition: all 0.18s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 2px 4px rgba(2, 132, 199, 0.2);
-        }
-
-        .btn-del:hover {
-            background-color: var(--del-primary-hover);
-            border-color: var(--del-primary-hover);
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
-            transform: translateY(-1px);
-        }
-
-        .btn-del:active {
-            transform: translateY(0);
-        }
-
-        .btn-outline-del {
-            background-color: var(--del-lightest-blue);
-            color: var(--del-primary) !important;
-            border: 1px solid var(--del-border-blue);
-            font-weight: 600;
-            font-size: 0.875rem;
-            border-radius: 8px;
-            padding: 0.55rem 1.1rem;
-            transition: all 0.18s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-outline-del:hover {
-            background-color: var(--del-soft-blue);
-            border-color: var(--del-primary);
-            color: var(--del-primary-hover) !important;
-            box-shadow: 0 2px 8px rgba(2, 132, 199, 0.15);
-            transform: translateY(-1px);
-        }
-
-        .btn-secondary-del {
-            background-color: #F1F5F9;
-            color: #334155 !important;
-            border: 1px solid #CBD5E1;
-            font-weight: 500;
-            font-size: 0.875rem;
-            border-radius: 8px;
-            padding: 0.55rem 1rem;
-            transition: all 0.15s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-secondary-del:hover {
-            background-color: #E2E8F0;
-            color: #0F172A !important;
         }
 
         /* Form Controls */
@@ -405,7 +410,7 @@
 
         .form-control:focus, .form-select:focus {
             border-color: var(--del-primary);
-            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.18);
+            box-shadow: 0 0 0 3px rgba(76, 29, 149, 0.18);
             outline: none;
         }
 
@@ -440,14 +445,14 @@
         }
 
         .table-del tbody tr:hover {
-            background-color: #F0F9FF;
+            background-color: #FAF5FF;
         }
 
         /* Badges */
         .badge-category {
-            background-color: var(--del-soft-blue);
-            color: #0369A1;
-            border: 1px solid var(--del-border-blue);
+            background-color: var(--del-soft-purple);
+            color: #581C87;
+            border: 1px solid var(--del-border-purple);
             font-size: 0.75rem;
             font-weight: 600;
             padding: 0.35rem 0.65rem;
@@ -460,8 +465,8 @@
         }
 
         .badge-category:hover {
-            background-color: #BAE6FD;
-            color: #0C4A6E;
+            background-color: #E9D5FF;
+            color: #3B0764;
         }
 
         .badge-status {
@@ -492,13 +497,13 @@
             border: 1px solid var(--del-danger-border);
         }
 
-        /* Cover Mockup Mini untuk Buku */
+        /* Cover Mockup Mini untuk Buku Bertema Ungu Del */
         .book-avatar {
             width: 38px;
             height: 48px;
             border-radius: 6px;
-            background: linear-gradient(135deg, var(--del-soft-blue) 0%, #BAE6FD 100%);
-            border: 1px solid var(--del-border-blue);
+            background: linear-gradient(135deg, var(--del-soft-purple) 0%, #E9D5FF 100%);
+            border: 1px solid var(--del-border-purple);
             color: var(--del-primary);
             display: flex;
             align-items: center;
@@ -506,7 +511,7 @@
             font-weight: 800;
             font-size: 0.85rem;
             flex-shrink: 0;
-            box-shadow: 0 2px 4px rgba(2, 132, 199, 0.1);
+            box-shadow: 0 2px 4px rgba(76, 29, 149, 0.1);
         }
 
         /* Alert Notifikasi */
@@ -568,7 +573,7 @@
         }
 
         .pagination .page-link:hover {
-            background-color: var(--del-soft-blue);
+            background-color: var(--del-soft-purple);
             color: var(--del-primary-hover);
         }
 
@@ -718,7 +723,7 @@
 
             <div class="sidebar-footer">
                 <div class="d-flex align-items-center gap-2">
-                    <span class="badge" style="background-color: var(--del-soft-blue); color: var(--del-primary); border: 1px solid var(--del-border-blue); font-size: 0.65rem; font-weight: 700;">IT DEL</span>
+                    <span class="badge" style="background-color: var(--del-soft-purple); color: var(--del-primary); border: 1px solid var(--del-border-purple); font-size: 0.65rem; font-weight: 700;">IT DEL</span>
                     <div>
                         <div class="fw-bold text-dark" style="font-size: 0.775rem;">Institut Teknologi Del</div>
                         <div style="font-size: 0.7rem; color: #64748B;">Laguboti, Toba, Sumatera Utara</div>
@@ -770,7 +775,7 @@
 
             <!-- Area Konten Dinamis -->
             <main class="content-area">
-                <!-- Pesan Notifikasi Berhasil -->
+                <!-- Pesan Notifikasi Berhasil (Flash Session) -->
                 @if (session('success'))
                     <div class="alert-del alert-del-success alert-dismissible fade show" role="alert">
                         <i class="bi bi-check-circle-fill fs-5 text-success"></i>
@@ -779,7 +784,7 @@
                     </div>
                 @endif
 
-                <!-- Pesan Notifikasi Gagal -->
+                <!-- Pesan Notifikasi Gagal (Flash Session) -->
                 @if (session('error'))
                     <div class="alert-del alert-del-danger alert-dismissible fade show" role="alert">
                         <i class="bi bi-exclamation-triangle-fill fs-5 text-danger"></i>
@@ -788,7 +793,7 @@
                     </div>
                 @endif
 
-                <!-- Pesan Kesalahan Input Validasi -->
+                <!-- Pesan Kesalahan Input Validasi Server-Side -->
                 @if ($errors->any())
                     <div class="alert-del alert-del-warning alert-dismissible fade show" role="alert">
                         <i class="bi bi-exclamation-circle-fill fs-5 text-warning"></i>
@@ -814,7 +819,7 @@
                     <strong>SIPUS-Del</strong> &mdash; Sistem Informasi Perpustakaan Institut Teknologi Del
                 </div>
                 <div>
-                    Praktikum Pemrograman &amp; Pengujian Web (PPW)
+                    Praktikum Pemrograman &amp; Pengujian Web (PPW) &bull; Dosen: Chandro Pardede, S.Kom., M.Sc.
                 </div>
             </footer>
         </div>

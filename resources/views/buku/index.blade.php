@@ -2,9 +2,9 @@
     <!-- Header Halaman -->
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
         <div>
-            <div class="d-inline-flex align-items-center gap-2 px-2 py-1 rounded-pill mb-1" style="background-color: var(--del-soft-blue); border: 1px solid var(--del-border-blue);">
-                <i class="bi bi-journals text-primary" style="font-size: 0.75rem;"></i>
-                <span class="small fw-bold text-primary" style="font-size: 0.725rem;">Koleksi Perpustakaan</span>
+            <div class="d-inline-flex align-items-center gap-2 px-2 py-1 rounded-pill mb-1" style="background-color: var(--del-soft-purple); border: 1px solid var(--del-border-purple);">
+                <i class="bi bi-journals" style="font-size: 0.75rem; color: var(--del-primary);"></i>
+                <span class="small fw-bold" style="font-size: 0.725rem; color: var(--del-primary);">Koleksi Perpustakaan</span>
             </div>
             <h1 class="h4 fw-bold text-dark mb-1">Manajemen Buku</h1>
             <p class="text-muted small mb-0">Kelola daftar buku, kategori bidang ilmu, dan jumlah stok di perpustakaan Institut Teknologi Del.</p>
@@ -41,7 +41,7 @@
     </div>
 
     <!-- Panel Pencarian & Filter -->
-    <div class="ui-card p-3 mb-4" style="background: linear-gradient(180deg, #FFFFFF 0%, var(--del-lightest-blue) 100%);">
+    <div class="ui-card p-3 mb-4" style="background: linear-gradient(180deg, #FFFFFF 0%, var(--del-lightest-purple) 100%);">
         <form action="{{ route('buku.index') }}" method="GET" class="row g-2 align-items-end">
             <!-- Simpan Filter Stok saat ini jika ada -->
             @if (request('stok_status'))
@@ -51,11 +51,11 @@
             <!-- Input Kata Kunci Pencarian -->
             <div class="col-md-5">
                 <label for="search" class="form-label">
-                    <i class="bi bi-search text-primary me-1"></i> Cari Buku
+                    <i class="bi bi-search me-1" style="color: var(--del-primary);"></i> Cari Buku
                 </label>
                 <div class="input-group">
                     <span class="input-group-text bg-white border-end-0 text-muted">
-                        <i class="bi bi-search text-primary"></i>
+                        <i class="bi bi-search" style="color: var(--del-primary);"></i>
                     </span>
                     <input type="text"
                            class="form-control border-start-0 ps-0"
@@ -69,7 +69,7 @@
             <!-- Filter Kategori -->
             <div class="col-md-4">
                 <label for="kategori_id" class="form-label">
-                    <i class="bi bi-tags text-primary me-1"></i> Pilih Kategori
+                    <i class="bi bi-tags me-1" style="color: var(--del-primary);"></i> Pilih Kategori
                 </label>
                 <select class="form-select" id="kategori_id" name="kategori_id">
                     <option value="">Semua Kategori</option>
@@ -100,9 +100,9 @@
         <div class="ui-card-header">
             <div class="d-flex align-items-center gap-2">
                 <span class="ui-card-title">
-                    <i class="bi bi-collection text-primary"></i> Daftar Koleksi Buku
+                    <i class="bi bi-collection" style="color: var(--del-primary);"></i> Daftar Koleksi Buku
                 </span>
-                <span class="badge" style="background-color: var(--del-soft-blue); color: var(--del-primary); border: 1px solid var(--del-border-blue); font-weight: 700;">
+                <span class="badge" style="background-color: var(--del-soft-purple); color: var(--del-primary); border: 1px solid var(--del-border-purple); font-weight: 700;">
                     Total: {{ $bukus->total() }}
                 </span>
             </div>
@@ -186,10 +186,10 @@
                             <td class="text-end">
                                 <div class="btn-group btn-group-sm" role="group">
                                     <a href="{{ route('buku.show', $buku) }}" class="btn btn-light border py-1 px-2" title="Lihat Informasi Buku">
-                                        <i class="bi bi-eye text-primary"></i>
+                                        <i class="bi bi-eye" style="color: var(--del-primary);"></i>
                                     </a>
                                     <a href="{{ route('buku.edit', $buku) }}" class="btn btn-light border py-1 px-2" title="Ubah Data Buku">
-                                        <i class="bi bi-pencil" style="color: #0284C7;"></i>
+                                        <i class="bi bi-pencil" style="color: var(--del-primary);"></i>
                                     </a>
                                     <button type="button"
                                             class="btn btn-light border text-danger py-1 px-2"
@@ -205,7 +205,7 @@
                             <td colspan="6" class="text-center py-5">
                                 @if (request()->hasAny(['search', 'kategori_id', 'stok_status']) && (request('search') || request('kategori_id') || request('stok_status')))
                                     <div class="py-4">
-                                        <div class="p-3 d-inline-flex rounded-circle mb-3" style="background-color: var(--del-soft-blue); color: var(--del-primary);">
+                                        <div class="p-3 d-inline-flex rounded-circle mb-3" style="background-color: var(--del-soft-purple); color: var(--del-primary);">
                                             <i class="bi bi-search fs-2"></i>
                                         </div>
                                         <h5 class="fw-bold text-dark">Buku Tidak Ditemukan</h5>
@@ -216,7 +216,7 @@
                                     </div>
                                 @else
                                     <div class="py-4">
-                                        <div class="p-3 d-inline-flex rounded-circle mb-3" style="background-color: var(--del-soft-blue); color: var(--del-primary);">
+                                        <div class="p-3 d-inline-flex rounded-circle mb-3" style="background-color: var(--del-soft-purple); color: var(--del-primary);">
                                             <i class="bi bi-journal-plus fs-2"></i>
                                         </div>
                                         <h5 class="fw-bold text-dark">Belum Ada Buku Terdaftar</h5>

@@ -4,7 +4,7 @@
         <div>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-1" style="font-size: 0.8rem;">
-                    <li class="breadcrumb-item"><a href="{{ route('kategori.index') }}" class="text-decoration-none text-primary">Daftar Kategori</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('kategori.index') }}" class="text-decoration-none" style="color: var(--del-primary);">Daftar Kategori</a></li>
                     <li class="breadcrumb-item active text-dark" aria-current="page">Detail Kategori</li>
                 </ol>
             </nav>
@@ -26,12 +26,12 @@
         </div>
     </div>
 
-    <!-- Ringkasan Info Kategori -->
-    <div class="ui-card p-4 mb-4" style="background: linear-gradient(135deg, #FFFFFF 0%, var(--del-lightest-blue) 100%); border-left: 4px solid var(--del-primary);">
+    <!-- Ringkasan Info Kategori (Bertema Del Royal Purple) -->
+    <div class="ui-card p-4 mb-4" style="background: linear-gradient(135deg, #FFFFFF 0%, var(--del-lightest-purple) 100%); border-left: 4px solid var(--del-primary);">
         <div class="row g-3 align-items-center">
             <div class="col-md-3">
                 <div class="text-muted small fw-medium">Kode Kategori</div>
-                <div class="h5 fw-bold font-monospace text-primary mt-1 mb-0">{{ $kategori->kode_kategori }}</div>
+                <div class="h5 fw-bold font-monospace mt-1 mb-0" style="color: var(--del-primary);">{{ $kategori->kode_kategori }}</div>
             </div>
             <div class="col-md-6">
                 <div class="text-muted small fw-medium">Nama Bidang Keilmuan</div>
@@ -39,7 +39,7 @@
             </div>
             <div class="col-md-3 text-md-end">
                 <div class="text-muted small fw-medium">Jumlah Koleksi Buku</div>
-                <div class="h5 fw-bold text-primary mt-1 mb-0">
+                <div class="h5 fw-bold mt-1 mb-0" style="color: var(--del-primary);">
                     {{ $bukus->total() }} <span class="small text-muted fw-normal">judul buku</span>
                 </div>
             </div>
@@ -51,9 +51,9 @@
         <div class="ui-card-header">
             <div class="d-flex align-items-center gap-2">
                 <span class="ui-card-title">
-                    <i class="bi bi-journal-text text-primary"></i> Daftar Buku dalam Kategori Ini
+                    <i class="bi bi-journal-text" style="color: var(--del-primary);"></i> Daftar Buku dalam Kategori Ini
                 </span>
-                <span class="badge" style="background-color: var(--del-soft-blue); color: var(--del-primary); border: 1px solid var(--del-border-blue); font-weight: 700;">
+                <span class="badge" style="background-color: var(--del-soft-purple); color: var(--del-primary); border: 1px solid var(--del-border-purple); font-weight: 700;">
                     Total: {{ $bukus->total() }}
                 </span>
             </div>
@@ -115,10 +115,10 @@
                             <td class="text-end">
                                 <div class="btn-group btn-group-sm" role="group">
                                     <a href="{{ route('buku.show', $buku) }}" class="btn btn-light border py-1 px-2" title="Detail">
-                                        <i class="bi bi-eye text-primary"></i>
+                                        <i class="bi bi-eye" style="color: var(--del-primary);"></i>
                                     </a>
                                     <a href="{{ route('buku.edit', $buku) }}" class="btn btn-light border py-1 px-2" title="Ubah">
-                                        <i class="bi bi-pencil" style="color: #0284C7;"></i>
+                                        <i class="bi bi-pencil" style="color: var(--del-primary);"></i>
                                     </a>
                                 </div>
                             </td>
@@ -127,7 +127,7 @@
                         <tr>
                             <td colspan="5" class="text-center py-5">
                                 <div class="py-3 text-muted">
-                                    <div class="p-3 d-inline-flex rounded-circle mb-3" style="background-color: var(--del-soft-blue); color: var(--del-primary);">
+                                    <div class="p-3 d-inline-flex rounded-circle mb-3" style="background-color: var(--del-soft-purple); color: var(--del-primary);">
                                         <i class="bi bi-journal-x fs-2"></i>
                                     </div>
                                     <h6 class="fw-bold text-dark">Belum Ada Buku</h6>

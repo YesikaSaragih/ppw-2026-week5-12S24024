@@ -6,7 +6,7 @@
                 <div>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-1" style="font-size: 0.8rem;">
-                            <li class="breadcrumb-item"><a href="{{ route('buku.index') }}" class="text-decoration-none text-primary">Daftar Buku</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('buku.index') }}" class="text-decoration-none" style="color: var(--del-primary);">Daftar Buku</a></li>
                             <li class="breadcrumb-item active text-dark" aria-current="page">Detail Informasi</li>
                         </ol>
                     </nav>
@@ -28,13 +28,13 @@
                 </div>
             </div>
 
-            <!-- Kartu Utama Buku (Mockup Cover Modern + Status Stok) -->
-            <div class="ui-card p-4 mb-4" style="background: linear-gradient(135deg, #FFFFFF 0%, var(--del-lightest-blue) 100%); border-left: 4px solid var(--del-primary);">
+            <!-- Kartu Utama Buku (Mockup Cover Ungu Del + Status Stok) -->
+            <div class="ui-card p-4 mb-4" style="background: linear-gradient(135deg, #FFFFFF 0%, var(--del-lightest-purple) 100%); border-left: 4px solid var(--del-primary);">
                 <div class="row g-4 align-items-center">
                     <div class="col-md-2 col-sm-3 text-center">
-                        <div class="mx-auto" style="width: 80px; height: 110px; border-radius: 8px; background: linear-gradient(135deg, var(--del-soft-blue) 0%, #BAE6FD 100%); border: 2px solid var(--del-border-blue); display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(2, 132, 199, 0.15);">
-                            <i class="bi bi-book-half text-primary fs-2 mb-1"></i>
-                            <span class="fw-bold font-monospace text-primary" style="font-size: 0.65rem;">{{ $buku->tahun_terbit }}</span>
+                        <div class="mx-auto" style="width: 80px; height: 110px; border-radius: 8px; background: linear-gradient(135deg, var(--del-soft-purple) 0%, #E9D5FF 100%); border: 2px solid var(--del-border-purple); display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(76, 29, 149, 0.15);">
+                            <i class="bi bi-book-half fs-2 mb-1" style="color: var(--del-primary);"></i>
+                            <span class="fw-bold font-monospace" style="font-size: 0.65rem; color: var(--del-primary);">{{ $buku->tahun_terbit }}</span>
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-9">
@@ -100,7 +100,7 @@
                 <div class="col-sm-6 col-md-3">
                     <div class="ui-card p-3 h-100">
                         <div class="text-muted small fw-medium">Kategori Bidang</div>
-                        <div class="fw-bold text-primary mt-1">
+                        <div class="fw-bold mt-1" style="color: var(--del-primary);">
                             {{ $buku->kategori ? $buku->kategori->nama_kategori : '-' }}
                         </div>
                     </div>
@@ -109,9 +109,9 @@
 
             <!-- Kartu Sinopsis / Ringkasan Buku -->
             <div class="ui-card mb-4">
-                <div class="ui-card-header" style="background: linear-gradient(180deg, var(--del-lightest-blue) 0%, #FFFFFF 100%);">
+                <div class="ui-card-header" style="background: linear-gradient(180deg, var(--del-lightest-purple) 0%, #FFFFFF 100%);">
                     <span class="ui-card-title">
-                        <i class="bi bi-text-paragraph text-primary me-1"></i> Ringkasan / Sinopsis Buku
+                        <i class="bi bi-text-paragraph me-1" style="color: var(--del-primary);"></i> Ringkasan / Sinopsis Buku
                     </span>
                 </div>
                 <div class="ui-card-body">
