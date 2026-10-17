@@ -16,35 +16,39 @@ class BukuController extends Controller
      */
     public function index(Request $request): View
     {
-        // Inisialisasi query dengan Eager Loading relasi 'kategori' untuk mencegah N+1 problem
-        $query = Buku::with('kategori');
-
-        // Fitur Pencarian Server-Side (berdasarkan judul, ISBN, atau penulis)
+        // Simpan kata kunci pencarian terakhir ke dalam Session State sesuai modul
         if ($request->filled('search')) {
-            $search = trim($request->input('search'));
-            $query->where(function ($q) use ($search) {
-                $q->where('judul', 'like', "%{$search}%")
-                  ->orWhere('isbn', 'like', "%{$search}%")
-                  ->orWhere('penulis', 'like', "%{$search}%");
+            session(['last_buku_search' => $request->search]);
+        }
+
+        // Inisialisasi query dengan Eager Loading 'kategori' dan agregasi withCount('peminjamans') bebas N+1
+        $query = Buku::with('kategori')->withCount('peminjamans');
+
+        // Filter dinamis kondisional menggunakan when() sesuai modul poin 3
+        $query->when($request->search, function ($q, $search) {
+            $search = trim($search);
+            $q->where(function ($sub) use ($search) {
+                $sub->where('judul', 'like', "%{$search}%")
+                    ->orWhere('isbn', 'like', "%{$search}%")
+                    ->orWhere('penulis', 'like', "%{$search}%");
             });
-        }
+        });
 
-        // Filter berdasarkan Kategori
-        if ($request->filled('kategori_id')) {
-            $query->where('kategori_id', $request->input('kategori_id'));
-        }
+        // Filter kategori dinamis dengan when()
+        $query->when($request->kategori_id, function ($q, $kategoriId) {
+            $q->where('kategori_id', $kategoriId);
+        });
 
-        // Filter berdasarkan Status Stok
-        if ($request->filled('stok_status')) {
-            $status = $request->input('stok_status');
+        // Filter status stok dinamis dengan when()
+        $query->when($request->stok_status, function ($q, $status) {
             if ($status === 'tersedia') {
-                $query->where('stok', '>', 5);
+                $q->where('stok', '>', 5);
             } elseif ($status === 'menipis') {
-                $query->where('stok', '>', 0)->where('stok', '<=', 5);
+                $q->where('stok', '>', 0)->where('stok', '<=', 5);
             } elseif ($status === 'habis') {
-                $query->where('stok', 0);
+                $q->where('stok', 0);
             }
-        }
+        });
 
         // Pagination 10 data per halaman dengan mempertahankan query string filter
         $bukus = $query->latest()->paginate(10)->withQueryString();

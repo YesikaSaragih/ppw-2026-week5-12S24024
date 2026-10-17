@@ -3,34 +3,49 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buku;
-use App\Models\Kategori;
+use App\Models\Peminjaman;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
     /**
-     * Tampilkan halaman utama Dashboard Perpustakaan dengan metrik dan data riil.
+     * Tampilkan halaman utama Dashboard Perpustakaan dengan metrik analitik
+     * yang dihitung menggunakan Fluent Query Builder (DB::table()) sesuai Modul Minggu 6.
      */
     public function index(): View
     {
-        // Menghitung statistik riil langsung dari database
-        $totalJudul = Buku::count();
-        $totalKategori = Kategori::count();
-        $totalStok = (int) Buku::sum('stok');
-        $stokKosong = Buku::where('stok', 0)->count();
+        // 1. Rekapitulasi Analitik menggunakan Fluent Query Builder (DB::table)
+        $totalJudul = DB::table('bukus')->count();
+        $totalStok = (int) DB::table('bukus')->sum('stok');
+        $totalDipinjam = DB::table('peminjamans')->where('status', 'dipinjam')->count();
+        $totalDikembalikan = DB::table('peminjamans')->where('status', 'dikembalikan')->count();
+        $totalKategori = DB::table('kategoris')->count();
+        $stokKosong = DB::table('bukus')->where('stok', 0)->count();
 
-        // Mengambil 5 buku terbaru dengan Eager Loading kategori untuk mitigasi N+1
+        // 2. Koleksi 5 Buku Terbaru dengan Eager Loading dan withCount peminjamans (Bebas N+1)
         $recentBukus = Buku::with('kategori')
+            ->withCount('peminjamans')
             ->latest()
+            ->take(5)
+            ->get();
+
+        // 3. Sirkulasi 5 Peminjaman Aktif Terbaru
+        $recentPeminjamans = Peminjaman::with('buku')
+            ->where('status', 'dipinjam')
+            ->latest('tanggal_pinjam')
             ->take(5)
             ->get();
 
         return view('dashboard', compact(
             'totalJudul',
-            'totalKategori',
             'totalStok',
+            'totalDipinjam',
+            'totalDikembalikan',
+            'totalKategori',
             'stokKosong',
-            'recentBukus'
+            'recentBukus',
+            'recentPeminjamans'
         ));
     }
 }
