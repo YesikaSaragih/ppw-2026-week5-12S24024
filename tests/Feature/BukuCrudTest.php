@@ -12,6 +12,23 @@ class BukuCrudTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $user = \App\Models\User::factory()->create([
+            'email' => 'pustakawan@del.ac.id',
+        ]);
+        $this->actingAs($user);
+    }
+
+    public function test_guest_dialihkan_ke_login_saat_akses_halaman_tambah_buku(): void
+    {
+        $this->app['auth']->logout();
+
+        $response = $this->get(route('buku.create'));
+        $response->assertRedirect(route('login'));
+    }
+
     public function test_dapat_menampilkan_halaman_index_buku(): void
     {
         $kategori = Kategori::factory()->create(['nama_kategori' => 'Teknologi Informasi']);

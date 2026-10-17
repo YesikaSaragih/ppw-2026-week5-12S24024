@@ -11,6 +11,23 @@ class KategoriCrudTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $user = \App\Models\User::factory()->create([
+            'email' => 'pustakawan@del.ac.id',
+        ]);
+        $this->actingAs($user);
+    }
+
+    public function test_guest_dialihkan_ke_login_saat_akses_halaman_tambah_kategori(): void
+    {
+        $this->app['auth']->logout();
+
+        $response = $this->get(route('kategori.create'));
+        $response->assertRedirect(route('login'));
+    }
+
     public function test_dapat_menampilkan_halaman_index_kategori(): void
     {
         Kategori::factory()->create([
