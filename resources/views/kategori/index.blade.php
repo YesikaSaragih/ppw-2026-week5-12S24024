@@ -10,9 +10,15 @@
             <p class="text-muted small mb-0">Kelola kelompok bidang ilmu untuk merapikan dan memudahkan pencarian buku di perpustakaan Del.</p>
         </div>
         <div>
-            <a href="{{ route('kategori.create') }}" class="btn btn-del">
-                <i class="bi bi-plus-lg"></i> Tambah Kategori Baru
-            </a>
+            @auth
+                <a href="{{ route('kategori.create') }}" class="btn btn-del">
+                    <i class="bi bi-plus-lg"></i> Tambah Kategori Baru
+                </a>
+            @else
+                <a href="{{ route('login') }}" class="btn btn-outline-del">
+                    <i class="bi bi-box-arrow-in-right"></i> Login Pustakawan
+                </a>
+            @endauth
         </div>
     </div>
 
@@ -96,15 +102,17 @@
                                     <a href="{{ route('kategori.show', $kategori) }}" class="btn btn-light border py-1 px-2" title="Lihat Buku Terdaftar">
                                         <i class="bi bi-eye" style="color: var(--del-primary);"></i>
                                     </a>
-                                    <a href="{{ route('kategori.edit', $kategori) }}" class="btn btn-light border py-1 px-2" title="Ubah Nama Kategori">
-                                        <i class="bi bi-pencil" style="color: var(--del-primary);"></i>
-                                    </a>
-                                    <button type="button"
-                                            class="btn btn-light border text-danger py-1 px-2"
-                                            title="Hapus Kategori"
-                                            onclick="confirmDelete('{{ route('kategori.destroy', $kategori) }}', '{{ addslashes($kategori->nama_kategori) }}')">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
+                                    @auth
+                                        <a href="{{ route('kategori.edit', $kategori) }}" class="btn btn-light border py-1 px-2" title="Ubah Nama Kategori">
+                                            <i class="bi bi-pencil" style="color: var(--del-primary);"></i>
+                                        </a>
+                                        <button type="button"
+                                                class="btn btn-light border text-danger py-1 px-2"
+                                                title="Hapus Kategori"
+                                                onclick="confirmDelete('{{ route('kategori.destroy', $kategori) }}', '{{ addslashes($kategori->nama_kategori) }}')">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    @endauth
                                 </div>
                             </td>
                         </tr>

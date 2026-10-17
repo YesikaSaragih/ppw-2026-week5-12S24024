@@ -10,9 +10,15 @@
             <p class="text-muted small mb-0">Kelola daftar buku, kategori bidang ilmu, dan jumlah stok di perpustakaan Institut Teknologi Del.</p>
         </div>
         <div>
-            <a href="{{ route('buku.create') }}" class="btn btn-del">
-                <i class="bi bi-plus-lg"></i> Tambah Buku Baru
-            </a>
+            @auth
+                <a href="{{ route('buku.create') }}" class="btn btn-del">
+                    <i class="bi bi-plus-lg"></i> Tambah Buku Baru
+                </a>
+            @else
+                <a href="{{ route('login') }}" class="btn btn-outline-del">
+                    <i class="bi bi-box-arrow-in-right"></i> Login Pustakawan
+                </a>
+            @endauth
         </div>
     </div>
 
@@ -61,7 +67,7 @@
                            class="form-control border-start-0 ps-0"
                            id="search"
                            name="search"
-                           value="{{ request('search') }}"
+                           value="{{ request('search', session('last_buku_search')) }}"
                            placeholder="Ketik judul buku, nama penulis, atau ISBN...">
                 </div>
             </div>
@@ -117,10 +123,10 @@
             <table class="table table-del align-middle mb-0">
                 <thead>
                     <tr>
-                        <th style="width: 16%;">ISBN</th>
-                        <th style="width: 32%;">Buku &amp; Penulis</th>
-                        <th style="width: 18%;">Kategori</th>
-                        <th style="width: 8%;" class="text-center">Tahun</th>
+                        <th style="width: 15%;">ISBN</th>
+                        <th style="width: 31%;">Buku &amp; Penulis</th>
+                        <th style="width: 16%;">Kategori</th>
+                        <th style="width: 12%;" class="text-center">Sirkulasi</th>
                         <th style="width: 12%;" class="text-center">Stok</th>
                         <th style="width: 14%;" class="text-end">Aksi</th>
                     </tr>
@@ -165,8 +171,10 @@
                                     <span class="text-muted small">&mdash;</span>
                                 @endif
                             </td>
-                            <td class="text-center text-secondary small">
-                                {{ $buku->tahun_terbit }}
+                            <td class="text-center">
+                                <span class="badge" style="background-color: var(--del-soft-purple); color: var(--del-primary); border: 1px solid var(--del-border-purple); font-size: 0.725rem;">
+                                    <i class="bi bi-arrow-repeat me-1"></i>{{ $buku->peminjamans_count }}x pinjam
+                                </span>
                             </td>
                             <td class="text-center">
                                 @if ($buku->stok > 5)
@@ -188,15 +196,22 @@
                                     <a href="{{ route('buku.show', $buku) }}" class="btn btn-light border py-1 px-2" title="Lihat Informasi Buku">
                                         <i class="bi bi-eye" style="color: var(--del-primary);"></i>
                                     </a>
-                                    <a href="{{ route('buku.edit', $buku) }}" class="btn btn-light border py-1 px-2" title="Ubah Data Buku">
-                                        <i class="bi bi-pencil" style="color: var(--del-primary);"></i>
-                                    </a>
-                                    <button type="button"
-                                            class="btn btn-light border text-danger py-1 px-2"
-                                            title="Hapus Buku"
-                                            onclick="confirmDelete('{{ route('buku.destroy', $buku) }}', '{{ addslashes($buku->judul) }}')">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
+                                    @auth
+                                        @if ($buku->stok > 0)
+                                            <a href="{{ route('peminjaman.create', ['buku_id' => $buku->id]) }}" class="btn btn-light border py-1 px-2 text-success" title="Pinjam Buku Ini">
+                                                <i class="bi bi-arrow-left-right"></i>
+                                            </a>
+                                        @endif
+                                        <a href="{{ route('buku.edit', $buku) }}" class="btn btn-light border py-1 px-2" title="Ubah Data Buku">
+                                            <i class="bi bi-pencil" style="color: var(--del-primary);"></i>
+                                        </a>
+                                        <button type="button"
+                                                class="btn btn-light border text-danger py-1 px-2"
+                                                title="Hapus Buku"
+                                                onclick="confirmDelete('{{ route('buku.destroy', $buku) }}', '{{ addslashes($buku->judul) }}')">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    @endauth
                                 </div>
                             </td>
                         </tr>

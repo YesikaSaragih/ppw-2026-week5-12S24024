@@ -7,15 +7,24 @@
                 <span class="small fw-bold" style="font-size: 0.75rem; color: var(--del-primary);">Institut Teknologi Del &bull; Sistem Informasi Perpustakaan</span>
             </div>
             <h1 class="h3 fw-bold text-dark mb-1">Dashboard Perpustakaan</h1>
-            <p class="text-muted small mb-0">Selamat datang di sistem manajemen buku dan koleksi pustaka kampus Institut Teknologi Del.</p>
+            <p class="text-muted small mb-0">Selamat datang di sistem manajemen buku, sirkulasi peminjaman, dan analitik perpustakaan Kampus Del.</p>
         </div>
         <div class="d-flex align-items-center gap-2">
-            <a href="{{ route('buku.create') }}" class="btn btn-del btn-sm">
-                <i class="bi bi-plus-lg"></i> Tambah Buku Baru
-            </a>
-            <a href="{{ route('kategori.create') }}" class="btn btn-outline-del btn-sm">
-                <i class="bi bi-folder-plus"></i> Tambah Kategori
-            </a>
+            @auth
+                <a href="{{ route('peminjaman.create') }}" class="btn btn-del btn-sm">
+                    <i class="bi bi-arrow-left-right"></i> Catat Peminjaman
+                </a>
+                <a href="{{ route('buku.create') }}" class="btn btn-outline-del btn-sm">
+                    <i class="bi bi-plus-lg"></i> Tambah Buku
+                </a>
+            @else
+                <a href="{{ route('buku.index') }}" class="btn btn-del btn-sm">
+                    <i class="bi bi-journals"></i> Jelajahi Buku
+                </a>
+                <a href="{{ route('login') }}" class="btn btn-outline-del btn-sm">
+                    <i class="bi bi-box-arrow-in-right"></i> Login Pustakawan
+                </a>
+            @endauth
         </div>
     </div>
 
@@ -31,37 +40,37 @@
                     Mengenal SIPUS-Del
                 </h2>
                 <p class="text-secondary small mb-3" style="line-height: 1.75; font-size: 0.925rem;">
-                    <strong>SIPUS-Del</strong> adalah aplikasi perpustakaan resmi yang digunakan untuk mengelola seluruh data buku di kampus <strong>Institut Teknologi Del</strong>. Aplikasi ini memudahkan pustakawan dan mahasiswa dalam mencari buku referensi kuliah, mengelompokkan buku berdasarkan bidang keilmuan, serta memantau sisa buku yang siap dipinjam secara langsung.
+                    <strong>SIPUS-Del</strong> adalah aplikasi perpustakaan resmi yang digunakan untuk mengelola seluruh data buku dan sirkulasi peminjaman di kampus <strong>Institut Teknologi Del</strong>. Terintegrasi dengan transaksi ACID, penguncian baris <em>lockForUpdate</em>, dan manajemen sesi pustakawan.
                 </p>
                 <div class="d-flex flex-wrap gap-2">
                     <span class="badge bg-white text-dark border px-3 py-2 fw-semibold" style="font-size: 0.775rem;">
                         <i class="bi bi-award-fill text-warning me-1"></i> Nilai Luhur Del: MarTuhan, Marroha, Marbisuk
                     </span>
                     <span class="badge bg-white text-dark border px-3 py-2 fw-semibold" style="font-size: 0.775rem;">
-                        <i class="bi bi-book-fill me-1" style="color: var(--del-primary);"></i> Buku Kuliah &amp; Referensi Lengkap
+                        <i class="bi bi-shield-check text-primary me-1"></i> Transaksi ACID Terproteksi
                     </span>
                     <span class="badge bg-white text-dark border px-3 py-2 fw-semibold" style="font-size: 0.775rem;">
-                        <i class="bi bi-check2-circle text-success me-1"></i> Informasi Stok Selalu Akurat
+                        <i class="bi bi-check2-circle text-success me-1"></i> Informasi Stok Selalu Real-Time
                     </span>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="bg-white p-3 rounded-3 border" style="border-color: var(--del-border-purple) !important; box-shadow: 0 2px 8px rgba(76, 29, 149, 0.06);">
                     <div class="fw-bold text-dark small mb-2 d-flex align-items-center gap-2">
-                        <i class="bi bi-lightbulb-fill text-warning"></i> 3 Manfaat Utama:
+                        <i class="bi bi-lightning-charge-fill text-warning"></i> Keunggulan Sirkulasi Week 6:
                     </div>
                     <ul class="list-unstyled mb-0 small text-secondary" style="line-height: 1.8; font-size: 0.825rem;">
                         <li class="d-flex align-items-start gap-2 mb-1">
-                            <i class="bi bi-check-circle-fill mt-1" style="color: var(--del-primary);"></i>
-                            <span><strong>Pencarian Mudah:</strong> Temukan buku berdasarkan judul, nama penulis, atau nomor ISBN.</span>
+                            <i class="bi bi-lock-fill mt-1" style="color: var(--del-primary);"></i>
+                            <span><strong>Pessimistic Locking:</strong> Mencegah race condition perebutan eksemplar buku terakhir.</span>
                         </li>
                         <li class="d-flex align-items-start gap-2 mb-1">
-                            <i class="bi bi-check-circle-fill mt-1" style="color: var(--del-primary);"></i>
-                            <span><strong>Kategori Rapi:</strong> Buku terbagi jelas dalam kelompok ilmu Informatika, SI, AI, dan Sains.</span>
+                            <i class="bi bi-arrow-repeat mt-1" style="color: var(--del-primary);"></i>
+                            <span><strong>Rollback Atomik:</strong> Tolak otomatis jika stok fisik buku = 0.</span>
                         </li>
                         <li class="d-flex align-items-start gap-2">
-                            <i class="bi bi-check-circle-fill mt-1" style="color: var(--del-primary);"></i>
-                            <span><strong>Pantau Sisa Buku:</strong> Tahu persis apakah buku masih ada di rak atau sedang kosong.</span>
+                            <i class="bi bi-shield-lock mt-1" style="color: var(--del-primary);"></i>
+                            <span><strong>Session Security:</strong> Regenerasi ID sesi untuk mencegah Session Fixation.</span>
                         </li>
                     </ul>
                 </div>
@@ -69,7 +78,7 @@
         </div>
     </div>
 
-    <!-- 4 Kartu Statistik Interaktif -->
+    <!-- 4 Kartu Metrik Analitik (Dihitung Menggunakan Fluent Query Builder DB::table) -->
     <div class="row g-3 mb-4">
         <!-- Kartu 1: Total Judul Buku -->
         <div class="col-sm-6 col-xl-3">
@@ -82,30 +91,13 @@
                 </div>
                 <div class="h2 fw-bold mb-1" style="color: var(--del-deep);">{{ number_format($totalJudul) }}</div>
                 <div class="small text-muted d-flex align-items-center justify-content-between">
-                    <span>Judul buku terdaftar</span>
-                    <span class="fw-semibold" style="font-size: 0.75rem; color: var(--del-primary);">Lihat semua &rarr;</span>
+                    <span>{{ number_format($totalKategori) }} bidang keilmuan</span>
+                    <span class="fw-semibold" style="font-size: 0.75rem; color: var(--del-primary);">Katalog &rarr;</span>
                 </div>
             </a>
         </div>
 
-        <!-- Kartu 2: Kategori Buku -->
-        <div class="col-sm-6 col-xl-3">
-            <a href="{{ route('kategori.index') }}" class="stat-card">
-                <div class="d-flex align-items-center justify-content-between mb-3">
-                    <span class="text-muted small fw-bold text-uppercase" style="font-size: 0.725rem; letter-spacing: 0.05em;">Kategori Buku</span>
-                    <div class="stat-icon" style="background-color: #EDE9FE; color: #6D28D9;">
-                        <i class="bi bi-tags"></i>
-                    </div>
-                </div>
-                <div class="h2 fw-bold mb-1" style="color: #4C1D95;">{{ number_format($totalKategori) }}</div>
-                <div class="small text-muted d-flex align-items-center justify-content-between">
-                    <span>Bidang keilmuan</span>
-                    <span class="fw-semibold" style="font-size: 0.75rem; color: #6D28D9;">Lihat semua &rarr;</span>
-                </div>
-            </a>
-        </div>
-
-        <!-- Kartu 3: Total Eksemplar Fisik -->
+        <!-- Kartu 2: Total Stok Fisik -->
         <div class="col-sm-6 col-xl-3">
             <div class="stat-card" style="cursor: default;">
                 <div class="d-flex align-items-center justify-content-between mb-3">
@@ -116,45 +108,60 @@
                 </div>
                 <div class="h2 fw-bold text-success mb-1">{{ number_format($totalStok) }}</div>
                 <div class="small text-muted">
-                    Eksemplar fisik di perpustakaan
+                    Eksemplar fisik di rak kampus
                 </div>
             </div>
         </div>
 
-        <!-- Kartu 4: Buku Stok Habis -->
+        <!-- Kartu 3: Sedang Dipinjam -->
         <div class="col-sm-6 col-xl-3">
-            <a href="{{ route('buku.index', ['stok_status' => 'habis']) }}" class="stat-card" style="border-left: {{ $stokKosong > 0 ? '4px solid #EF4444' : '1px solid var(--del-border)' }};">
+            <a href="{{ route('peminjaman.index', ['status' => 'dipinjam']) }}" class="stat-card">
                 <div class="d-flex align-items-center justify-content-between mb-3">
-                    <span class="text-muted small fw-bold text-uppercase" style="font-size: 0.725rem; letter-spacing: 0.05em;">Stok Habis</span>
-                    <div class="stat-icon" style="background-color: {{ $stokKosong > 0 ? '#FEF2F2' : '#F1F5F9' }}; color: {{ $stokKosong > 0 ? '#DC2626' : '#64748B' }};">
-                        <i class="bi bi-exclamation-octagon"></i>
+                    <span class="text-muted small fw-bold text-uppercase" style="font-size: 0.725rem; letter-spacing: 0.05em;">Sedang Dipinjam</span>
+                    <div class="stat-icon" style="background-color: #FFFBEB; color: #D97706;">
+                        <i class="bi bi-hourglass-split"></i>
                     </div>
                 </div>
-                <div class="h2 fw-bold {{ $stokKosong > 0 ? 'text-danger' : 'text-dark' }} mb-1">{{ number_format($stokKosong) }}</div>
+                <div class="h2 fw-bold text-warning mb-1">{{ number_format($totalDipinjam) }}</div>
                 <div class="small text-muted d-flex align-items-center justify-content-between">
-                    <span>{{ $stokKosong > 0 ? 'Buku perlu diisi ulang' : 'Semua buku memiliki stok' }}</span>
-                    @if ($stokKosong > 0)
-                        <span class="text-danger fw-semibold" style="font-size: 0.75rem;">Periksa &rarr;</span>
-                    @endif
+                    <span>Buku aktif di mahasiswa</span>
+                    <span class="fw-semibold text-warning" style="font-size: 0.75rem;">Sirkulasi &rarr;</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Kartu 4: Telah Dikembalikan -->
+        <div class="col-sm-6 col-xl-3">
+            <a href="{{ route('peminjaman.index', ['status' => 'dikembalikan']) }}" class="stat-card">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <span class="text-muted small fw-bold text-uppercase" style="font-size: 0.725rem; letter-spacing: 0.05em;">Telah Dikembalikan</span>
+                    <div class="stat-icon" style="background-color: #EFF6FF; color: #2563EB;">
+                        <i class="bi bi-check2-circle"></i>
+                    </div>
+                </div>
+                <div class="h2 fw-bold text-primary mb-1">{{ number_format($totalDikembalikan) }}</div>
+                <div class="small text-muted d-flex align-items-center justify-content-between">
+                    <span>Transaksi selesai</span>
+                    <span class="fw-semibold text-primary" style="font-size: 0.75rem;">Riwayat &rarr;</span>
                 </div>
             </a>
         </div>
     </div>
 
-    <!-- Layout Dua Kolom: Buku Terbaru & Aksi Cepat -->
-    <div class="row g-4">
-        <!-- Kolom Kiri: Buku Terbaru Ditambahkan -->
-        <div class="col-lg-8">
+    <!-- Layout Dua Kolom: Buku Terbaru & Sirkulasi Peminjaman Aktif -->
+    <div class="row g-4 mb-4">
+        <!-- Kolom Kiri: Koleksi Buku Terbaru -->
+        <div class="col-lg-7">
             <div class="ui-card">
                 <div class="ui-card-header">
                     <div>
                         <h2 class="ui-card-title">
-                            <i class="bi bi-clock-history" style="color: var(--del-primary);"></i> Buku Terbaru Ditambahkan
+                            <i class="bi bi-journal-plus" style="color: var(--del-primary);"></i> Koleksi Buku Terbaru
                         </h2>
-                        <div class="text-muted small">Daftar buku yang baru saja didaftarkan ke sistem perpustakaan</div>
+                        <div class="text-muted small">Koleksi terdaftar dilengkapi metrik peminjaman bebas N+1</div>
                     </div>
                     <a href="{{ route('buku.index') }}" class="btn btn-sm btn-outline-del">
-                        Lihat Semua Buku <i class="bi bi-arrow-right"></i>
+                        Lihat Semua <i class="bi bi-arrow-right"></i>
                     </a>
                 </div>
 
@@ -164,7 +171,7 @@
                             <tr>
                                 <th>Buku &amp; Penulis</th>
                                 <th>Kategori</th>
-                                <th class="text-center">Tahun</th>
+                                <th class="text-center">Sirkulasi</th>
                                 <th class="text-center">Ketersediaan</th>
                                 <th class="text-end">Aksi</th>
                             </tr>
@@ -196,8 +203,10 @@
                                             <span class="text-muted small">&mdash;</span>
                                         @endif
                                     </td>
-                                    <td class="text-center text-secondary small">
-                                        {{ $buku->tahun_terbit }}
+                                    <td class="text-center">
+                                        <span class="badge" style="background-color: var(--del-soft-purple); color: var(--del-primary); border: 1px solid var(--del-border-purple); font-size: 0.725rem;">
+                                            <i class="bi bi-arrow-repeat me-1"></i>{{ $buku->peminjamans_count }}x dipinjam
+                                        </span>
                                     </td>
                                     <td class="text-center">
                                         @if ($buku->stok > 5)
@@ -234,53 +243,56 @@
             </div>
         </div>
 
-        <!-- Kolom Kanan: Aksi Cepat & Panduan Status -->
-        <div class="col-lg-4">
-            <!-- Card Aksi Cepat -->
-            <div class="ui-card p-4 mb-4">
-                <h3 class="h6 fw-bold text-dark mb-3 d-flex align-items-center gap-2">
-                    <i class="bi bi-lightning-charge-fill text-warning"></i> Menu Pintas
-                </h3>
-                <div class="d-flex flex-column gap-2">
-                    <a href="{{ route('buku.create') }}" class="btn btn-del justify-content-start py-2">
-                        <i class="bi bi-plus-circle me-1"></i> Tambah Buku Baru
-                    </a>
-                    <a href="{{ route('kategori.create') }}" class="btn btn-outline-del justify-content-start py-2">
-                        <i class="bi bi-folder-plus me-1"></i> Tambah Kategori Baru
-                    </a>
-                    <a href="{{ route('buku.index') }}" class="btn btn-secondary-del justify-content-start py-2">
-                        <i class="bi bi-journal-bookmark me-1"></i> Buka Daftar Buku
-                    </a>
-                    <a href="{{ route('kategori.index') }}" class="btn btn-secondary-del justify-content-start py-2">
-                        <i class="bi bi-tags me-1"></i> Buka Daftar Kategori
+        <!-- Kolom Kanan: Peminjaman Aktif Terbaru -->
+        <div class="col-lg-5">
+            <div class="ui-card">
+                <div class="ui-card-header">
+                    <div>
+                        <h2 class="ui-card-title">
+                            <i class="bi bi-hourglass-split" style="color: var(--del-primary);"></i> Peminjaman Aktif Terbaru
+                        </h2>
+                        <div class="text-muted small">Mahasiswa yang sedang meminjam buku fisik</div>
+                    </div>
+                    <a href="{{ route('peminjaman.index', ['status' => 'dipinjam']) }}" class="btn btn-sm btn-outline-del">
+                        Semua <i class="bi bi-arrow-right"></i>
                     </a>
                 </div>
-            </div>
 
-            <!-- Card Panduan Status Stok Buku -->
-            <div class="ui-card p-4">
-                <h3 class="h6 fw-bold text-dark mb-3 d-flex align-items-center gap-2">
-                    <i class="bi bi-info-circle-fill" style="color: var(--del-primary);"></i> Keterangan Status Stok
-                </h3>
-                <div class="d-flex flex-column gap-3 small">
-                    <div class="d-flex align-items-start gap-2">
-                        <span class="badge-status badge-status-tersedia mt-1">Tersedia</span>
-                        <div class="text-muted">
-                            Jumlah buku <strong>lebih dari 5</strong>. Siap untuk dipinjam oleh mahasiswa atau dosen.
+                <div class="p-3">
+                    @forelse ($recentPeminjamans as $pinjam)
+                        <div class="p-3 mb-2 rounded-3 border" style="background-color: var(--del-surface); border-color: var(--del-border) !important;">
+                            <div class="d-flex justify-content-between align-items-start mb-1">
+                                <div>
+                                    <span class="font-monospace fw-bold small" style="color: var(--del-primary); font-size: 0.775rem;">
+                                        {{ $pinjam->kode_pinjam }}
+                                    </span>
+                                </div>
+                                <span class="badge" style="background-color: var(--del-warning-bg); color: var(--del-warning-text); border: 1px solid var(--del-warning-border); font-size: 0.7rem;">
+                                    Tempo: {{ \Carbon\Carbon::parse($pinjam->tanggal_jatuh_tempo)->translatedFormat('d M') }}
+                                </span>
+                            </div>
+                            <div class="fw-semibold text-dark small text-truncate mb-1">
+                                {{ $pinjam->buku->judul ?? 'Buku Perpustakaan' }}
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center text-muted small" style="font-size: 0.75rem;">
+                                <span><i class="bi bi-person me-1"></i>{{ $pinjam->nama_peminjam }} ({{ $pinjam->nim_peminjam }})</span>
+                                @auth
+                                    <form method="POST" action="{{ route('peminjaman.kembalikan', $pinjam) }}" class="m-0" onsubmit="return confirm('Kembalikan buku ini? Stok akan otomatis bertambah 1.');">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-outline-success py-0 px-2" style="font-size: 0.7rem;">
+                                            Kembalikan
+                                        </button>
+                                    </form>
+                                @endauth
+                            </div>
                         </div>
-                    </div>
-                    <div class="d-flex align-items-start gap-2">
-                        <span class="badge-status badge-status-menipis mt-1">Menipis</span>
-                        <div class="text-muted">
-                            Jumlah buku tinggal <strong>1 sampai 5</strong>. Persediaan hampir habis.
+                    @empty
+                        <div class="text-center py-4 text-muted">
+                            <i class="bi bi-check2-circle fs-3 d-block mb-1 text-success"></i>
+                            <div class="small fw-semibold">Tidak ada pinjaman aktif</div>
+                            <div class="text-muted" style="font-size: 0.75rem;">Seluruh buku fisik berada di rak perpustakaan.</div>
                         </div>
-                    </div>
-                    <div class="d-flex align-items-start gap-2">
-                        <span class="badge-status badge-status-habis mt-1">Habis</span>
-                        <div class="text-muted">
-                            Jumlah buku <strong>0</strong>. Buku sedang tidak tersedia di rak perpustakaan.
-                        </div>
-                    </div>
+                    @endforelse
                 </div>
             </div>
         </div>

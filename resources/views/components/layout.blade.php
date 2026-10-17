@@ -706,20 +706,31 @@
                         <span>Manajemen Kategori</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('peminjaman.index') }}" class="sidebar-nav-item {{ request()->routeIs('peminjaman.*') ? 'active' : '' }}">
+                        <i class="bi bi-arrow-left-right"></i>
+                        <span>Sirkulasi Peminjaman</span>
+                    </a>
+                </li>
             </ul>
 
             <!-- Tombol Tambah Cepat di Sidebar -->
+            @auth
             <div class="sidebar-quick-action">
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="small fw-bold text-dark" style="font-size: 0.775rem;">Aksi Cepat</span>
                     <i class="bi bi-lightning-charge-fill text-warning" style="font-size: 0.85rem;"></i>
                 </div>
                 <div class="d-grid gap-1">
-                    <a href="{{ route('buku.create') }}" class="btn btn-del btn-sm w-100 justify-content-center" style="font-size: 0.8rem; padding: 0.4rem 0.75rem;">
-                        <i class="bi bi-plus-lg"></i> Tambah Buku Baru
+                    <a href="{{ route('peminjaman.create') }}" class="btn btn-del btn-sm w-100 justify-content-center mb-1" style="font-size: 0.8rem; padding: 0.4rem 0.75rem;">
+                        <i class="bi bi-arrow-left-right"></i> Catat Pinjaman
+                    </a>
+                    <a href="{{ route('buku.create') }}" class="btn btn-outline-del btn-sm w-100 justify-content-center" style="font-size: 0.8rem; padding: 0.4rem 0.75rem;">
+                        <i class="bi bi-plus-lg"></i> Tambah Buku
                     </a>
                 </div>
             </div>
+            @endauth
 
             <div class="sidebar-footer">
                 <div class="d-flex align-items-center gap-2">
@@ -749,7 +760,7 @@
                 </div>
 
                 <!-- Bagian Kanan Header: Status & Tombol Cepat -->
-                <div class="d-flex align-items-center gap-3">
+                <div class="d-flex align-items-center gap-2 gap-sm-3">
                     <!-- Status Sistem & Tanggal Hari Ini -->
                     <div class="d-none d-md-flex align-items-center gap-2 px-3 py-1 bg-light rounded-pill border" style="font-size: 0.75rem;">
                         <span class="pulse-dot"></span>
@@ -758,18 +769,61 @@
 
                     <!-- Tombol Cepat Sesuai Halaman -->
                     @if (request()->routeIs('buku.index'))
-                        <a href="{{ route('buku.create') }}" class="btn btn-del btn-sm">
-                            <i class="bi bi-plus-lg"></i> <span class="d-none d-sm-inline">Tambah Buku</span>
-                        </a>
+                        @auth
+                            <a href="{{ route('buku.create') }}" class="btn btn-del btn-sm">
+                                <i class="bi bi-plus-lg"></i> <span class="d-none d-sm-inline">Tambah Buku</span>
+                            </a>
+                        @endauth
                     @elseif (request()->routeIs('kategori.index'))
-                        <a href="{{ route('kategori.create') }}" class="btn btn-del btn-sm">
-                            <i class="bi bi-plus-lg"></i> <span class="d-none d-sm-inline">Tambah Kategori</span>
+                        @auth
+                            <a href="{{ route('kategori.create') }}" class="btn btn-del btn-sm">
+                                <i class="bi bi-plus-lg"></i> <span class="d-none d-sm-inline">Tambah Kategori</span>
+                            </a>
+                        @endauth
+                    @elseif (request()->routeIs('peminjaman.index'))
+                        <a href="{{ route('peminjaman.create') }}" class="btn btn-del btn-sm">
+                            <i class="bi bi-plus-lg"></i> <span class="d-none d-sm-inline">Catat Peminjaman</span>
                         </a>
                     @elseif (request()->routeIs('dashboard'))
-                        <a href="{{ route('buku.create') }}" class="btn btn-del btn-sm">
-                            <i class="bi bi-plus-lg"></i> <span class="d-none d-sm-inline">Tambah Buku</span>
-                        </a>
+                        @auth
+                            <a href="{{ route('peminjaman.create') }}" class="btn btn-del btn-sm">
+                                <i class="bi bi-arrow-left-right"></i> <span class="d-none d-sm-inline">Pinjam Buku</span>
+                            </a>
+                        @endauth
                     @endif
+
+                    <!-- User Profil Pustakawan / Tombol Login -->
+                    @auth
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-outline-del dropdown-toggle d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-circle fs-6"></i>
+                                <span class="d-none d-sm-inline fw-semibold">{{ Auth::user()->name }}</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" style="font-size: 0.85rem; border-radius: 10px;">
+                                <li class="px-3 py-2 border-bottom">
+                                    <div class="fw-bold text-dark">{{ Auth::user()->name }}</div>
+                                    <div class="text-muted small" style="font-size: 0.75rem;">{{ Auth::user()->email }}</div>
+                                    @if (session('login_timestamp'))
+                                        <div class="text-secondary mt-1" style="font-size: 0.7rem;">
+                                            <i class="bi bi-clock-history"></i> Masuk: {{ session('login_timestamp') }}
+                                        </div>
+                                    @endif
+                                </li>
+                                <li>
+                                    <form method="POST" action="{{ route('logout') }}" class="m-0">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item text-danger d-flex align-items-center gap-2 py-2">
+                                            <i class="bi bi-box-arrow-right"></i> Logout Pustakawan
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    @else
+                        <a href="{{ route('login') }}" class="btn btn-outline-del btn-sm">
+                            <i class="bi bi-box-arrow-in-right"></i> <span class="d-none d-sm-inline">Login Pustakawan</span>
+                        </a>
+                    @endauth
                 </div>
             </header>
 
