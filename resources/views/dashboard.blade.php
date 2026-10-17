@@ -148,153 +148,205 @@
         </div>
     </div>
 
-    <!-- Layout Dua Kolom: Buku Terbaru & Sirkulasi Peminjaman Aktif -->
-    <div class="row g-4 mb-4">
-        <!-- Kolom Kiri: Koleksi Buku Terbaru -->
-        <div class="col-lg-7">
-            <div class="ui-card">
-                <div class="ui-card-header">
-                    <div>
-                        <h2 class="ui-card-title">
-                            <i class="bi bi-journal-plus" style="color: var(--del-primary);"></i> Koleksi Buku Terbaru
-                        </h2>
-                        <div class="text-muted small">Koleksi terdaftar dilengkapi metrik peminjaman bebas N+1</div>
-                    </div>
-                    <a href="{{ route('buku.index') }}" class="btn btn-sm btn-outline-del">
-                        Lihat Semua <i class="bi bi-arrow-right"></i>
+    <!-- 1. Koleksi Buku Terbaru (Full-Width Layout - Bebas Geser Horizontal) -->
+    <div class="ui-card mb-4">
+        <div class="ui-card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+            <div>
+                <h2 class="ui-card-title mb-1">
+                    <i class="bi bi-journal-plus" style="color: var(--del-primary);"></i> Koleksi Buku Terbaru
+                </h2>
+                <div class="text-muted small">Daftar koleksi buku terbaru di perpustakaan dengan metrik ketersediaan dan sirkulasi</div>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                @auth
+                    <a href="{{ route('buku.create') }}" class="btn btn-sm btn-del">
+                        <i class="bi bi-plus-lg"></i> Tambah Buku
                     </a>
-                </div>
-
-                <div class="table-responsive">
-                    <table class="table table-del align-middle mb-0">
-                        <thead>
-                            <tr>
-                                <th>Buku &amp; Penulis</th>
-                                <th>Kategori</th>
-                                <th class="text-center">Sirkulasi</th>
-                                <th class="text-center">Ketersediaan</th>
-                                <th class="text-end">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($recentBukus as $buku)
-                                <tr>
-                                    <td>
-                                        <div class="d-flex align-items-center gap-3">
-                                            <div class="book-avatar">
-                                                {{ mb_substr($buku->judul, 0, 1) }}
-                                            </div>
-                                            <div>
-                                                <a href="{{ route('buku.show', $buku) }}" class="fw-bold text-dark text-decoration-none">
-                                                    {{ $buku->judul }}
-                                                </a>
-                                                <div class="small text-muted mt-1">
-                                                    <i class="bi bi-person me-1"></i>{{ $buku->penulis }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        @if ($buku->kategori)
-                                            <span class="badge-category">
-                                                <i class="bi bi-tag-fill"></i> {{ $buku->kategori->nama_kategori }}
-                                            </span>
-                                        @else
-                                            <span class="text-muted small">&mdash;</span>
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        <span class="badge" style="background-color: var(--del-soft-purple); color: var(--del-primary); border: 1px solid var(--del-border-purple); font-size: 0.725rem;">
-                                            <i class="bi bi-arrow-repeat me-1"></i>{{ $buku->peminjamans_count }}x dipinjam
-                                        </span>
-                                    </td>
-                                    <td class="text-center">
-                                        @if ($buku->stok > 5)
-                                            <span class="badge-status badge-status-tersedia">
-                                                <i class="bi bi-check-circle"></i> {{ $buku->stok }} buku
-                                            </span>
-                                        @elseif ($buku->stok > 0)
-                                            <span class="badge-status badge-status-menipis">
-                                                <i class="bi bi-exclamation-triangle"></i> Sisa {{ $buku->stok }}
-                                            </span>
-                                        @else
-                                            <span class="badge-status badge-status-habis">
-                                                <i class="bi bi-x-circle"></i> Habis
-                                            </span>
-                                        @endif
-                                    </td>
-                                    <td class="text-end">
-                                        <a href="{{ route('buku.show', $buku) }}" class="btn btn-sm btn-light border py-1 px-2" title="Lihat Informasi Buku">
-                                            <i class="bi bi-arrow-up-right" style="color: var(--del-primary);"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="5" class="text-center py-5 text-muted">
-                                        <i class="bi bi-journal-x fs-2 d-block mb-2" style="color: var(--del-primary);"></i>
-                                        Belum ada koleksi buku yang terdaftar di perpustakaan.
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
+                @endauth
+                <a href="{{ route('buku.index') }}" class="btn btn-sm btn-outline-del">
+                    Lihat Semua Koleksi <i class="bi bi-arrow-right"></i>
+                </a>
             </div>
         </div>
 
-        <!-- Kolom Kanan: Peminjaman Aktif Terbaru -->
-        <div class="col-lg-5">
-            <div class="ui-card">
-                <div class="ui-card-header">
-                    <div>
-                        <h2 class="ui-card-title">
-                            <i class="bi bi-hourglass-split" style="color: var(--del-primary);"></i> Peminjaman Aktif Terbaru
-                        </h2>
-                        <div class="text-muted small">Mahasiswa yang sedang meminjam buku fisik</div>
-                    </div>
-                    <a href="{{ route('peminjaman.index', ['status' => 'dipinjam']) }}" class="btn btn-sm btn-outline-del">
-                        Semua <i class="bi bi-arrow-right"></i>
-                    </a>
-                </div>
-
-                <div class="p-3">
-                    @forelse ($recentPeminjamans as $pinjam)
-                        <div class="p-3 mb-2 rounded-3 border" style="background-color: var(--del-surface); border-color: var(--del-border) !important;">
-                            <div class="d-flex justify-content-between align-items-start mb-1">
-                                <div>
-                                    <span class="font-monospace fw-bold small" style="color: var(--del-primary); font-size: 0.775rem;">
-                                        {{ $pinjam->kode_pinjam }}
-                                    </span>
+        <div class="table-responsive">
+            <table class="table table-del align-middle mb-0 w-100">
+                <thead>
+                    <tr>
+                        <th style="min-width: 240px;">Buku &amp; Penulis</th>
+                        <th style="min-width: 140px;">ISBN</th>
+                        <th style="min-width: 140px;">Kategori</th>
+                        <th class="text-center" style="min-width: 80px;">Tahun</th>
+                        <th class="text-center" style="min-width: 120px;">Sirkulasi</th>
+                        <th class="text-center" style="min-width: 130px;">Ketersediaan</th>
+                        <th class="text-end" style="min-width: 80px;">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($recentBukus as $buku)
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="book-avatar">
+                                        {{ mb_substr($buku->judul, 0, 1) }}
+                                    </div>
+                                    <div>
+                                        <a href="{{ route('buku.show', $buku) }}" class="fw-bold text-dark text-decoration-none">
+                                            {{ $buku->judul }}
+                                        </a>
+                                        <div class="small text-muted mt-1">
+                                            <i class="bi bi-person me-1"></i>{{ $buku->penulis }}
+                                        </div>
+                                    </div>
                                 </div>
-                                <span class="badge" style="background-color: var(--del-warning-bg); color: var(--del-warning-text); border: 1px solid var(--del-warning-border); font-size: 0.7rem;">
-                                    Tempo: {{ \Carbon\Carbon::parse($pinjam->tanggal_jatuh_tempo)->translatedFormat('d M') }}
+                            </td>
+                            <td>
+                                <span class="font-monospace small text-secondary bg-light px-2 py-1 rounded border">
+                                    {{ $buku->isbn }}
                                 </span>
-                            </div>
-                            <div class="fw-semibold text-dark small text-truncate mb-1">
-                                {{ $pinjam->buku->judul ?? 'Buku Perpustakaan' }}
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center text-muted small" style="font-size: 0.75rem;">
-                                <span><i class="bi bi-person me-1"></i>{{ $pinjam->nama_peminjam }} ({{ $pinjam->nim_peminjam }})</span>
+                            </td>
+                            <td>
+                                @if ($buku->kategori)
+                                    <span class="badge-category">
+                                        <i class="bi bi-tag-fill"></i> {{ $buku->kategori->nama_kategori }}
+                                    </span>
+                                @else
+                                    <span class="text-muted small">&mdash;</span>
+                                @endif
+                            </td>
+                            <td class="text-center text-secondary small fw-medium">
+                                {{ $buku->tahun_terbit }}
+                            </td>
+                            <td class="text-center">
+                                <span class="badge" style="background-color: var(--del-soft-purple); color: var(--del-primary); border: 1px solid var(--del-border-purple); font-size: 0.75rem; padding: 0.35rem 0.6rem;">
+                                    <i class="bi bi-arrow-repeat me-1"></i>{{ $buku->peminjamans_count }}x dipinjam
+                                </span>
+                            </td>
+                            <td class="text-center">
+                                @if ($buku->stok > 5)
+                                    <span class="badge-status badge-status-tersedia">
+                                        <i class="bi bi-check-circle"></i> {{ $buku->stok }} buku
+                                    </span>
+                                @elseif ($buku->stok > 0)
+                                    <span class="badge-status badge-status-menipis">
+                                        <i class="bi bi-exclamation-triangle"></i> Sisa {{ $buku->stok }}
+                                    </span>
+                                @else
+                                    <span class="badge-status badge-status-habis">
+                                        <i class="bi bi-x-circle"></i> Habis
+                                    </span>
+                                @endif
+                            </td>
+                            <td class="text-end">
+                                <a href="{{ route('buku.show', $buku) }}" class="btn btn-sm btn-light border py-1 px-2" title="Lihat Informasi Buku">
+                                    <i class="bi bi-arrow-up-right" style="color: var(--del-primary);"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="7" class="text-center py-5 text-muted">
+                                <i class="bi bi-journal-x fs-2 d-block mb-2" style="color: var(--del-primary);"></i>
+                                Belum ada koleksi buku yang terdaftar di perpustakaan.
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 2. Sirkulasi Peminjaman Aktif Terbaru (Full-Width Layout) -->
+    <div class="ui-card mb-4">
+        <div class="ui-card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+            <div>
+                <h2 class="ui-card-title mb-1">
+                    <i class="bi bi-hourglass-split" style="color: var(--del-primary);"></i> Sirkulasi Peminjaman Aktif Terbaru
+                </h2>
+                <div class="text-muted small">Daftar mahasiswa yang sedang meminjam buku fisik di perpustakaan</div>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                @auth
+                    <a href="{{ route('peminjaman.create') }}" class="btn btn-sm btn-del">
+                        <i class="bi bi-arrow-left-right"></i> Pinjam Buku
+                    </a>
+                @endauth
+                <a href="{{ route('peminjaman.index', ['status' => 'dipinjam']) }}" class="btn btn-sm btn-outline-del">
+                    Lihat Semua Peminjaman <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-del align-middle mb-0 w-100">
+                <thead>
+                    <tr>
+                        <th style="min-width: 140px;">Kode Pinjam</th>
+                        <th style="min-width: 240px;">Buku yang Dipinjam</th>
+                        <th style="min-width: 200px;">Mahasiswa Peminjam</th>
+                        <th class="text-center" style="min-width: 140px;">Jatuh Tempo</th>
+                        <th class="text-center" style="min-width: 110px;">Status</th>
+                        <th class="text-end" style="min-width: 110px;">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($recentPeminjamans as $pinjam)
+                        <tr>
+                            <td>
+                                <span class="font-monospace fw-bold small px-2 py-1 rounded border" style="background-color: var(--del-soft-purple); color: var(--del-primary); border-color: var(--del-border-purple) !important;">
+                                    {{ $pinjam->kode_pinjam }}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="fw-semibold text-dark">
+                                    {{ $pinjam->buku->judul ?? 'Buku Perpustakaan' }}
+                                </div>
+                                <div class="small text-muted">
+                                    <i class="bi bi-person me-1"></i>{{ $pinjam->buku->penulis ?? '-' }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="fw-medium text-dark">
+                                    {{ $pinjam->nama_peminjam }}
+                                </div>
+                                <div class="small text-muted font-monospace">
+                                    NIM: {{ $pinjam->nim_peminjam }}
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge" style="background-color: var(--del-warning-bg); color: var(--del-warning-text); border: 1px solid var(--del-warning-border); font-size: 0.75rem; padding: 0.35rem 0.6rem;">
+                                    <i class="bi bi-calendar-event me-1"></i>{{ \Carbon\Carbon::parse($pinjam->tanggal_jatuh_tempo)->translatedFormat('d M Y') }}
+                                </span>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge-status badge-status-menipis">
+                                    <i class="bi bi-clock"></i> Dipinjam
+                                </span>
+                            </td>
+                            <td class="text-end">
                                 @auth
-                                    <form method="POST" action="{{ route('peminjaman.kembalikan', $pinjam) }}" class="m-0" onsubmit="return confirm('Kembalikan buku ini? Stok akan otomatis bertambah 1.');">
+                                    <form method="POST" action="{{ route('peminjaman.kembalikan', $pinjam) }}" class="m-0 d-inline" onsubmit="return confirm('Kembalikan buku ini? Stok akan otomatis bertambah 1.');">
                                         @csrf
-                                        <button type="submit" class="btn btn-sm btn-outline-success py-0 px-2" style="font-size: 0.7rem;">
-                                            Kembalikan
+                                        <button type="submit" class="btn btn-sm btn-outline-success py-1 px-2" style="font-size: 0.775rem;" title="Kembalikan Buku">
+                                            <i class="bi bi-check2-circle me-1"></i> Kembalikan
                                         </button>
                                     </form>
+                                @else
+                                    <span class="text-muted small">&mdash;</span>
                                 @endauth
-                            </div>
-                        </div>
+                            </td>
+                        </tr>
                     @empty
-                        <div class="text-center py-4 text-muted">
-                            <i class="bi bi-check2-circle fs-3 d-block mb-1 text-success"></i>
-                            <div class="small fw-semibold">Tidak ada pinjaman aktif</div>
-                            <div class="text-muted" style="font-size: 0.75rem;">Seluruh buku fisik berada di rak perpustakaan.</div>
-                        </div>
+                        <tr>
+                            <td colspan="6" class="text-center py-4 text-muted">
+                                <i class="bi bi-check2-circle fs-3 d-block mb-1 text-success"></i>
+                                <div class="small fw-semibold">Tidak ada pinjaman aktif</div>
+                                <div class="text-muted" style="font-size: 0.75rem;">Seluruh koleksi buku fisik saat ini berada di rak perpustakaan.</div>
+                            </td>
+                        </tr>
                     @endforelse
-                </div>
-            </div>
+                </tbody>
+            </table>
         </div>
     </div>
 </x-layout>

@@ -607,7 +607,7 @@
 
     <!-- Top Horizontal Navigation Bar (Bertema Resmi Del Royal Purple #4C1D95) -->
     <nav class="navbar navbar-expand-lg navbar-del-top navbar-del sticky-top">
-        <div class="container-xl">
+        <div class="container-fluid px-3 px-lg-5">
             <!-- Brand / Logo Del -->
             <a href="{{ route('dashboard') }}" class="navbar-brand d-flex align-items-center gap-2 text-decoration-none me-3">
                 <div class="del-brand-icon">
@@ -723,7 +723,7 @@
 
     <!-- Konten Utama (Spacious & Clean Layout) -->
     <main class="main-content">
-        <div class="container-xl">
+        <div class="container-fluid px-3 px-lg-5">
             <!-- Pesan Notifikasi Berhasil (Flash Session) -->
             @if (session('success'))
                 <div class="alert-del alert-del-success alert-dismissible fade show" role="alert">
@@ -765,7 +765,7 @@
 
     <!-- Footer Aplikasi Full-Width -->
     <footer class="dashboard-footer mt-auto">
-        <div class="container-xl d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <div class="container-fluid px-3 px-lg-5 d-flex flex-wrap justify-content-between align-items-center gap-2">
             <div>
                 <strong>SIPUS-Del</strong> &mdash; Sistem Informasi Perpustakaan Institut Teknologi Del
             </div>
