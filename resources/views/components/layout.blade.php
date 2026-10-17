@@ -128,190 +128,147 @@
             overflow-x: hidden;
         }
 
-        /* Layout Struktur */
-        .dashboard-wrapper {
-            display: flex;
+        /* Body & Main Content */
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--del-bg);
+            color: var(--del-text-main);
             min-height: 100vh;
-            width: 100%;
-        }
-
-        /* Sidebar Styling */
-        .sidebar {
-            width: 270px;
-            background-color: var(--del-surface);
-            border-right: 1px solid var(--del-border);
             display: flex;
             flex-direction: column;
-            flex-shrink: 0;
-            transition: transform 0.25s ease-in-out;
-            z-index: 1040;
         }
 
-        .sidebar-brand {
-            padding: 1.35rem 1.25rem;
-            display: flex;
-            align-items: center;
-            gap: 0.85rem;
-            border-bottom: 1px solid var(--del-border);
-            text-decoration: none;
-            color: var(--del-text-main);
-            background: linear-gradient(180deg, #FFFFFF 0%, var(--del-lightest-purple) 100%);
+        .main-content {
+            flex: 1 0 auto;
+            padding: 2rem 0 3.5rem;
         }
 
-        .sidebar-brand-icon {
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(135deg, var(--del-soft-purple) 0%, #E9D5FF 100%);
-            color: var(--del-primary);
-            border: 1px solid var(--del-border-purple);
-            border-radius: 12px;
+        /* Top Horizontal Navbar Bertema Resmi Del (#4C1D95) */
+        .navbar-del-top {
+            background: linear-gradient(135deg, #4C1D95 0%, #3B0764 100%) !important;
+            border-bottom: 2px solid #5B21B6;
+            box-shadow: 0 4px 16px rgba(76, 29, 149, 0.2);
+            padding: 0.65rem 0;
+            z-index: 1030;
+        }
+
+        .del-brand-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.16);
+            backdrop-filter: blur(4px);
+            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.35rem;
+            font-size: 1.25rem;
             flex-shrink: 0;
-            box-shadow: 0 4px 10px rgba(76, 29, 149, 0.15);
             transition: transform 0.2s ease;
         }
 
-        .sidebar-brand:hover .sidebar-brand-icon {
+        .navbar-brand:hover .del-brand-icon {
             transform: scale(1.05) rotate(-3deg);
+            background: rgba(255, 255, 255, 0.24);
         }
 
-        .sidebar-brand-title {
+        .del-brand-title {
             font-size: 1.15rem;
             font-weight: 800;
             letter-spacing: -0.025em;
-            line-height: 1.2;
-            color: var(--del-deep);
+            line-height: 1.15;
+            color: #FFFFFF;
         }
 
-        .sidebar-brand-title span {
-            color: var(--del-primary);
+        .del-brand-title span {
+            color: #DDD6FE; /* Lavender Cerah */
         }
 
-        .sidebar-brand-subtitle {
-            font-size: 0.725rem;
+        .del-brand-subtitle {
+            font-size: 0.685rem;
             font-weight: 600;
-            color: var(--del-text-muted);
-            margin-top: 2px;
+            color: rgba(255, 255, 255, 0.75);
+            letter-spacing: 0.02em;
+            margin-top: 1px;
         }
 
-        .sidebar-menu {
-            padding: 1.25rem 0.85rem;
-            list-style: none;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 0.35rem;
-            flex-grow: 1;
-        }
-
-        .sidebar-menu-header {
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: #94A3B8;
-            padding: 0.5rem 0.75rem 0.25rem;
-        }
-
-        .sidebar-nav-item {
-            display: flex;
-            align-items: center;
-            gap: 0.85rem;
-            padding: 0.7rem 0.95rem;
-            color: var(--del-text-muted);
+        /* Nav Link Horizontal */
+        .del-nav-link {
+            color: rgba(255, 255, 255, 0.88);
             text-decoration: none;
             font-size: 0.875rem;
             font-weight: 500;
-            border-radius: 10px;
-            transition: all 0.18s ease-in-out;
-            position: relative;
-        }
-
-        .sidebar-nav-item i {
-            font-size: 1.15rem;
-            transition: transform 0.18s ease-in-out, color 0.18s ease;
-        }
-
-        .sidebar-nav-item:hover {
-            color: var(--del-primary);
-            background-color: var(--del-lightest-purple);
-            transform: translateX(3px);
-        }
-
-        .sidebar-nav-item:hover i {
-            color: var(--del-primary);
-            transform: scale(1.1);
-        }
-
-        .sidebar-nav-item.active {
-            color: var(--del-primary);
-            background-color: var(--del-soft-purple);
-            font-weight: 600;
-            box-shadow: inset 0 0 0 1px var(--del-border-purple);
-        }
-
-        .sidebar-nav-item.active i {
-            color: var(--del-primary);
-        }
-
-        .sidebar-nav-item.active::before {
-            content: "";
-            position: absolute;
-            left: -0.85rem;
-            top: 15%;
-            bottom: 15%;
-            width: 4px;
-            background-color: var(--del-primary);
-            border-top-right-radius: 4px;
-            border-bottom-right-radius: 4px;
-        }
-
-        .sidebar-quick-action {
-            margin: 0.5rem 0.85rem 1rem;
-            padding: 1rem;
-            background: linear-gradient(135deg, var(--del-lightest-purple) 0%, var(--del-soft-purple) 100%);
-            border: 1px dashed var(--del-border-purple);
-            border-radius: 12px;
-        }
-
-        .sidebar-footer {
-            padding: 1.1rem 1.25rem;
-            border-top: 1px solid var(--del-border);
-            font-size: 0.775rem;
-            color: var(--del-text-muted);
-            background-color: #F8FAFC;
-        }
-
-        /* Main Content Wrapper */
-        .main-wrapper {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-            background-color: var(--del-bg);
-        }
-
-        /* Top Header */
-        .top-header {
-            height: 68px;
-            background-color: var(--del-surface);
-            border-bottom: 1px solid var(--del-border);
-            padding: 0 1.75rem;
-            display: flex;
+            padding: 0.55rem 0.95rem;
+            border-radius: 8px;
+            display: inline-flex;
             align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 1020;
-            box-shadow: 0 1px 4px rgba(15, 23, 42, 0.03);
+            gap: 0.5rem;
+            transition: all 0.18s ease-in-out;
         }
 
-        .content-area {
-            padding: 1.75rem;
-            flex-grow: 1;
+        .del-nav-link:hover {
+            color: #FFFFFF;
+            background-color: rgba(255, 255, 255, 0.14);
+            transform: translateY(-1px);
+        }
+
+        .del-nav-link.active {
+            color: #FFFFFF;
+            background-color: rgba(255, 255, 255, 0.22);
+            font-weight: 600;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+        }
+
+        .del-nav-link i {
+            font-size: 1.05rem;
+            opacity: 0.92;
+        }
+
+        /* Tombol Akses di Top Navbar */
+        .btn-del-nav-light {
+            background-color: #FFFFFF;
+            color: var(--del-primary) !important;
+            font-weight: 600;
+            font-size: 0.825rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 0.45rem 0.85rem;
+            transition: all 0.18s ease;
+        }
+
+        .btn-del-nav-light:hover {
+            background-color: #F5F3FF;
+            color: var(--del-primary-hover) !important;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-del-nav-user {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #FFFFFF !important;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 10px;
+            padding: 0.35rem 0.75rem;
+            transition: all 0.15s ease;
+        }
+
+        .btn-del-nav-user:hover {
+            background-color: rgba(255, 255, 255, 0.25);
+            color: #FFFFFF !important;
+        }
+
+        .user-avatar-circle {
+            width: 26px;
+            height: 26px;
+            background-color: #DDD6FE;
+            color: var(--del-primary);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.775rem;
         }
 
         /* Modern UI Cards */
@@ -628,178 +585,97 @@
             color: var(--del-primary);
         }
 
-        /* Responsive Mobile */
+        /* Responsive Mobile Top Navbar */
         @media (max-width: 991.98px) {
-            .sidebar {
-                position: fixed;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                transform: translateX(-100%);
-                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            .navbar-del-top .navbar-collapse {
+                background: #3B0764;
+                padding: 1rem;
+                border-radius: 12px;
+                margin-top: 0.75rem;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+                border: 1px solid rgba(255, 255, 255, 0.15);
             }
 
-            .sidebar.show {
-                transform: translateX(0);
-            }
-
-            .sidebar-backdrop {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background-color: rgba(15, 23, 42, 0.4);
-                z-index: 1030;
-                display: none;
-            }
-
-            .sidebar-backdrop.show {
-                display: block;
-            }
-
-            .content-area {
-                padding: 1.25rem 1rem;
-            }
-
-            .top-header {
-                padding: 0 1rem;
+            .del-nav-link {
+                width: 100%;
+                padding: 0.65rem 0.85rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="dashboard-wrapper">
-        <!-- Sidebar Backdrop untuk Mobile -->
-        <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebar()"></div>
-
-        <!-- Sidebar Navigasi -->
-        <aside class="sidebar" id="appSidebar">
-            <a href="{{ route('dashboard') }}" class="sidebar-brand">
-                <div class="sidebar-brand-icon">
+    <!-- Top Horizontal Navigation Bar (Bertema Resmi Del Royal Purple #4C1D95) -->
+    <nav class="navbar navbar-expand-lg navbar-del-top navbar-del sticky-top">
+        <div class="container-xl">
+            <!-- Brand / Logo Del -->
+            <a href="{{ route('dashboard') }}" class="navbar-brand d-flex align-items-center gap-2 text-decoration-none me-3">
+                <div class="del-brand-icon">
                     <i class="bi bi-book-half"></i>
                 </div>
                 <div>
-                    <div class="sidebar-brand-title">SIPUS<span>-Del</span></div>
-                    <div class="sidebar-brand-subtitle">Perpustakaan Kampus Del</div>
+                    <div class="del-brand-title">SIPUS<span>-Del</span></div>
+                    <div class="del-brand-subtitle">Institut Teknologi Del</div>
                 </div>
             </a>
 
-            <ul class="sidebar-menu">
-                <li class="sidebar-menu-header">Menu Navigasi</li>
-                <li>
-                    <a href="{{ route('dashboard') }}" class="sidebar-nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-                        <i class="bi bi-grid-1x2-fill"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('buku.index') }}" class="sidebar-nav-item {{ request()->routeIs('buku.*') ? 'active' : '' }}">
-                        <i class="bi bi-journal-bookmark-fill"></i>
-                        <span>Manajemen Buku</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('kategori.index') }}" class="sidebar-nav-item {{ request()->routeIs('kategori.*') ? 'active' : '' }}">
-                        <i class="bi bi-tags-fill"></i>
-                        <span>Manajemen Kategori</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('peminjaman.index') }}" class="sidebar-nav-item {{ request()->routeIs('peminjaman.*') ? 'active' : '' }}">
-                        <i class="bi bi-arrow-left-right"></i>
-                        <span>Sirkulasi Peminjaman</span>
-                    </a>
-                </li>
-            </ul>
+            <!-- Mobile Hamburger Toggle Button -->
+            <button class="navbar-toggler border-0 text-white shadow-none p-1" type="button" data-bs-toggle="collapse" data-bs-target="#delTopNavbar" aria-controls="delTopNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="bi bi-list fs-2 text-white"></i>
+            </button>
 
-            <!-- Tombol Tambah Cepat di Sidebar -->
-            @auth
-            <div class="sidebar-quick-action">
-                <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="small fw-bold text-dark" style="font-size: 0.775rem;">Aksi Cepat</span>
-                    <i class="bi bi-lightning-charge-fill text-warning" style="font-size: 0.85rem;"></i>
-                </div>
-                <div class="d-grid gap-1">
-                    <a href="{{ route('peminjaman.create') }}" class="btn btn-del btn-sm w-100 justify-content-center mb-1" style="font-size: 0.8rem; padding: 0.4rem 0.75rem;">
-                        <i class="bi bi-arrow-left-right"></i> Catat Pinjaman
-                    </a>
-                    <a href="{{ route('buku.create') }}" class="btn btn-outline-del btn-sm w-100 justify-content-center" style="font-size: 0.8rem; padding: 0.4rem 0.75rem;">
-                        <i class="bi bi-plus-lg"></i> Tambah Buku
-                    </a>
-                </div>
-            </div>
-            @endauth
-
-            <div class="sidebar-footer">
-                <div class="d-flex align-items-center gap-2">
-                    <span class="badge" style="background-color: var(--del-soft-purple); color: var(--del-primary); border: 1px solid var(--del-border-purple); font-size: 0.65rem; font-weight: 700;">IT DEL</span>
-                    <div>
-                        <div class="fw-bold text-dark" style="font-size: 0.775rem;">Institut Teknologi Del</div>
-                        <div style="font-size: 0.7rem; color: #64748B;">Laguboti, Toba, Sumatera Utara</div>
-                    </div>
-                </div>
-            </div>
-        </aside>
-
-        <!-- Wrapper Konten Utama -->
-        <div class="main-wrapper">
-            <!-- Top Header Navbar -->
-            <header class="top-header">
-                <div class="d-flex align-items-center gap-3">
-                    <button type="button" class="btn btn-sm btn-light border d-lg-none" onclick="toggleSidebar()" aria-label="Buka Menu">
-                        <i class="bi bi-list fs-5"></i>
-                    </button>
-                    <div>
-                        <div class="text-muted d-none d-sm-block" style="font-size: 0.725rem; font-weight: 500;">
-                            Sistem Informasi Perpustakaan &bull; Kampus Del
-                        </div>
-                        <div class="fw-bold text-dark" style="font-size: 0.95rem;">{{ $title ?? 'Dashboard' }}</div>
-                    </div>
-                </div>
-
-                <!-- Bagian Kanan Header: Status & Tombol Cepat -->
-                <div class="d-flex align-items-center gap-2 gap-sm-3">
-                    <!-- Status Sistem & Tanggal Hari Ini -->
-                    <div class="d-none d-md-flex align-items-center gap-2 px-3 py-1 bg-light rounded-pill border" style="font-size: 0.75rem;">
-                        <span class="pulse-dot"></span>
-                        <span class="text-secondary fw-medium">Sistem Aktif &bull; {{ now()->translatedFormat('d F Y') }}</span>
-                    </div>
-
-                    <!-- Tombol Cepat Sesuai Halaman -->
-                    @if (request()->routeIs('buku.index'))
-                        @auth
-                            <a href="{{ route('buku.create') }}" class="btn btn-del btn-sm">
-                                <i class="bi bi-plus-lg"></i> <span class="d-none d-sm-inline">Tambah Buku</span>
-                            </a>
-                        @endauth
-                    @elseif (request()->routeIs('kategori.index'))
-                        @auth
-                            <a href="{{ route('kategori.create') }}" class="btn btn-del btn-sm">
-                                <i class="bi bi-plus-lg"></i> <span class="d-none d-sm-inline">Tambah Kategori</span>
-                            </a>
-                        @endauth
-                    @elseif (request()->routeIs('peminjaman.index'))
-                        <a href="{{ route('peminjaman.create') }}" class="btn btn-del btn-sm">
-                            <i class="bi bi-plus-lg"></i> <span class="d-none d-sm-inline">Catat Peminjaman</span>
+            <!-- Menu Navigasi Horizontal (Diatas dan Kesamping) -->
+            <div class="collapse navbar-collapse" id="delTopNavbar">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-1 ms-lg-2">
+                    <li class="nav-item">
+                        <a href="{{ route('dashboard') }}" class="del-nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                            <i class="bi bi-grid-1x2-fill"></i>
+                            <span>Dashboard</span>
                         </a>
-                    @elseif (request()->routeIs('dashboard'))
-                        @auth
-                            <a href="{{ route('peminjaman.create') }}" class="btn btn-del btn-sm">
-                                <i class="bi bi-arrow-left-right"></i> <span class="d-none d-sm-inline">Pinjam Buku</span>
-                            </a>
-                        @endauth
-                    @endif
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('buku.index') }}" class="del-nav-link {{ request()->routeIs('buku.*') ? 'active' : '' }}">
+                            <i class="bi bi-journal-bookmark-fill"></i>
+                            <span>Manajemen Buku</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('kategori.index') }}" class="del-nav-link {{ request()->routeIs('kategori.*') ? 'active' : '' }}">
+                            <i class="bi bi-tags-fill"></i>
+                            <span>Manajemen Kategori</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('peminjaman.index') }}" class="del-nav-link {{ request()->routeIs('peminjaman.*') ? 'active' : '' }}">
+                            <i class="bi bi-arrow-left-right"></i>
+                            <span>Sirkulasi Peminjaman</span>
+                        </a>
+                    </li>
+                </ul>
 
-                    <!-- User Profil Pustakawan / Tombol Login -->
+                <!-- Bagian Kanan: Status, Aksi Cepat & Profil Pustakawan -->
+                <div class="d-flex flex-wrap align-items-center gap-2 pt-2 pt-lg-0">
+                    <!-- Status Sistem & Tanggal (Desktop) -->
+                    <div class="d-none d-xl-flex align-items-center gap-2 px-3 py-1 rounded-pill me-1" style="background-color: rgba(255, 255, 255, 0.12); font-size: 0.75rem; color: #FFFFFF; border: 1px solid rgba(255, 255, 255, 0.2);">
+                        <span class="pulse-dot"></span>
+                        <span>{{ now()->translatedFormat('d M Y') }}</span>
+                    </div>
+
                     @auth
+                        <!-- Tombol Cepat Pustakawan -->
+                        <a href="{{ route('peminjaman.create') }}" class="btn btn-sm btn-del-nav-light d-flex align-items-center gap-1 shadow-sm">
+                            <i class="bi bi-plus-lg"></i> <span>Pinjam Buku</span>
+                        </a>
+
+                        <!-- Dropdown Profil Pustakawan -->
                         <div class="dropdown">
-                            <button class="btn btn-sm btn-outline-del dropdown-toggle d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-person-circle fs-6"></i>
-                                <span class="d-none d-sm-inline fw-semibold">{{ Auth::user()->name }}</span>
+                            <button class="btn btn-sm btn-del-nav-user dropdown-toggle d-flex align-items-center gap-2 shadow-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="user-avatar-circle">
+                                    {{ mb_substr(Auth::user()->name, 0, 1) }}
+                                </div>
+                                <span class="d-none d-sm-inline fw-semibold text-white" style="font-size: 0.825rem;">{{ Auth::user()->name }}</span>
                             </button>
-                            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" style="font-size: 0.85rem; border-radius: 10px;">
+                            <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="font-size: 0.85rem; border-radius: 12px; min-width: 230px;">
                                 <li class="px-3 py-2 border-bottom">
                                     <div class="fw-bold text-dark">{{ Auth::user()->name }}</div>
                                     <div class="text-muted small" style="font-size: 0.75rem;">{{ Auth::user()->email }}</div>
@@ -810,6 +686,21 @@
                                     @endif
                                 </li>
                                 <li>
+                                    <a href="{{ route('peminjaman.create') }}" class="dropdown-item py-2 d-flex align-items-center gap-2">
+                                        <i class="bi bi-plus-circle text-primary"></i> Catat Peminjaman
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('buku.create') }}" class="dropdown-item py-2 d-flex align-items-center gap-2">
+                                        <i class="bi bi-journal-plus text-primary"></i> Tambah Buku Baru
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('kategori.create') }}" class="dropdown-item py-2 d-flex align-items-center gap-2">
+                                        <i class="bi bi-folder-plus text-primary"></i> Tambah Kategori
+                                    </a>
+                                </li>
+                                <li class="border-top">
                                     <form method="POST" action="{{ route('logout') }}" class="m-0">
                                         @csrf
                                         <button type="submit" class="dropdown-item text-danger d-flex align-items-center gap-2 py-2">
@@ -820,64 +711,69 @@
                             </ul>
                         </div>
                     @else
-                        <a href="{{ route('login') }}" class="btn btn-outline-del btn-sm">
-                            <i class="bi bi-box-arrow-in-right"></i> <span class="d-none d-sm-inline">Login Pustakawan</span>
+                        <!-- Tombol Login untuk Guest -->
+                        <a href="{{ route('login') }}" class="btn btn-sm btn-del-nav-light shadow-sm d-flex align-items-center gap-2">
+                            <i class="bi bi-box-arrow-in-right"></i> <span>Login Pustakawan</span>
                         </a>
                     @endauth
                 </div>
-            </header>
-
-            <!-- Area Konten Dinamis -->
-            <main class="content-area">
-                <!-- Pesan Notifikasi Berhasil (Flash Session) -->
-                @if (session('success'))
-                    <div class="alert-del alert-del-success alert-dismissible fade show" role="alert">
-                        <i class="bi bi-check-circle-fill fs-5 text-success"></i>
-                        <div class="flex-grow-1 fw-medium">{{ session('success') }}</div>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
-                    </div>
-                @endif
-
-                <!-- Pesan Notifikasi Gagal (Flash Session) -->
-                @if (session('error'))
-                    <div class="alert-del alert-del-danger alert-dismissible fade show" role="alert">
-                        <i class="bi bi-exclamation-triangle-fill fs-5 text-danger"></i>
-                        <div class="flex-grow-1 fw-medium">{{ session('error') }}</div>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
-                    </div>
-                @endif
-
-                <!-- Pesan Kesalahan Input Validasi Server-Side -->
-                @if ($errors->any())
-                    <div class="alert-del alert-del-warning alert-dismissible fade show" role="alert">
-                        <i class="bi bi-exclamation-circle-fill fs-5 text-warning"></i>
-                        <div class="flex-grow-1">
-                            <div class="fw-bold mb-1">Ada data yang belum sesuai:</div>
-                            <ul class="mb-0 ps-3 small">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
-                    </div>
-                @endif
-
-                <!-- Slot Halaman Blade -->
-                {{ $slot }}
-            </main>
-
-            <!-- Footer Aplikasi -->
-            <footer class="dashboard-footer">
-                <div>
-                    <strong>SIPUS-Del</strong> &mdash; Sistem Informasi Perpustakaan Institut Teknologi Del
-                </div>
-                <div>
-                    Praktikum Pemrograman &amp; Pengujian Web (PPW) &bull; Dosen: Chandro Pardede, S.Kom., M.Sc.
-                </div>
-            </footer>
+            </div>
         </div>
-    </div>
+    </nav>
+
+    <!-- Konten Utama (Spacious & Clean Layout) -->
+    <main class="main-content">
+        <div class="container-xl">
+            <!-- Pesan Notifikasi Berhasil (Flash Session) -->
+            @if (session('success'))
+                <div class="alert-del alert-del-success alert-dismissible fade show" role="alert">
+                    <i class="bi bi-check-circle-fill fs-5 text-success"></i>
+                    <div class="flex-grow-1 fw-medium">{{ session('success') }}</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
+                </div>
+            @endif
+
+            <!-- Pesan Notifikasi Gagal (Flash Session) -->
+            @if (session('error'))
+                <div class="alert-del alert-del-danger alert-dismissible fade show" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill fs-5 text-danger"></i>
+                    <div class="flex-grow-1 fw-medium">{{ session('error') }}</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
+                </div>
+            @endif
+
+            <!-- Pesan Kesalahan Input Validasi Server-Side -->
+            @if (isset($errors) && $errors->any())
+                <div class="alert-del alert-del-warning alert-dismissible fade show" role="alert">
+                    <i class="bi bi-exclamation-circle-fill fs-5 text-warning"></i>
+                    <div class="flex-grow-1">
+                        <div class="fw-bold mb-1">Ada data yang belum sesuai:</div>
+                        <ul class="mb-0 ps-3 small">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
+                </div>
+            @endif
+
+            <!-- Slot Konten Halaman -->
+            {{ $slot }}
+        </div>
+    </main>
+
+    <!-- Footer Aplikasi Full-Width -->
+    <footer class="dashboard-footer mt-auto">
+        <div class="container-xl d-flex flex-wrap justify-content-between align-items-center gap-2">
+            <div>
+                <strong>SIPUS-Del</strong> &mdash; Sistem Informasi Perpustakaan Institut Teknologi Del
+            </div>
+            <div>
+                Praktikum Pemrograman &amp; Pengujian Web (PPW) &bull; Dosen: Chandro Pardede, S.Kom., M.Sc.
+            </div>
+        </div>
+    </footer>
 
     <!-- Modal Konfirmasi Hapus Universal (Interaktif & Aman) -->
     <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
