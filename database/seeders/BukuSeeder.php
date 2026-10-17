@@ -262,6 +262,26 @@ class BukuSeeder extends Seeder
                 'stok' => 14,
                 'sinopsis' => 'Operasi matriks dan vektor, eliminasi Gauss-Jordan, ruang vektor, transformasi linier, nilai eigen dan vektor eigen.',
             ],
+            [
+                'isbn' => '978-602-6232-25-7',
+                'judul' => 'Sistem Terdistribusi dan Konsensus Kuantum',
+                'penulis' => 'Leslie Lamport & Andrew S. Tanenbaum',
+                'penerbit' => 'MIT Press',
+                'tahun_terbit' => 2024,
+                'kode_kategori' => 'KAT-RPL',
+                'stok' => 0,
+                'sinopsis' => 'Kajian lanjutan protokol konsensus Paxos, Raft, dan replikasi basis data terdistribusi tahan partisi jaringan.',
+            ],
+            [
+                'isbn' => '978-602-6232-26-4',
+                'judul' => 'Keamanan Sistem Informasi & Ethical Hacking Praktis',
+                'penulis' => 'Georgia Weidman',
+                'penerbit' => 'No Starch Press',
+                'tahun_terbit' => 2023,
+                'kode_kategori' => 'KAT-SEC',
+                'stok' => 1,
+                'sinopsis' => 'Panduan penetrasi jaringan, eksploitasi kerentanan web, reverse engineering, dan audit kepatuhan keamanan ISO 27001.',
+            ],
         ];
 
         foreach ($bukus as $buku) {
